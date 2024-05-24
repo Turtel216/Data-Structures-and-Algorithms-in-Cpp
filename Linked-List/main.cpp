@@ -1,5 +1,4 @@
 #include <iostream>
-#include <iterator>
 #include <stdexcept>
 #include <string>
 
@@ -246,7 +245,7 @@ public:
     cout << numberOfDeletedNotes << (numberOfDeletedNotes == 1 ? " has been deleted" : " have been deleted") << endl;
   }
 
-  void removeDuplicatesOfSorted(T data)
+  void removeDuplicatesOfSorted()
   {
     // if head points to null the list is empty
     if(head == nullptr)
@@ -268,7 +267,7 @@ public:
     int duplicatesDeletedCounter = 0;
 
     // Iterate over the list
-    while(currentNode != nullptr)
+    while(currentNode != nullptr && currentNode->next != nullptr)
     {
       // If the current node has the same value as the next node, delete the current node and continue
       if(currentNode->getPayload() == currentNode->next->getPayload())
@@ -277,6 +276,7 @@ public:
         delete currentNode;
         currentNode = prevNode->next;
         
+        duplicatesDeletedCounter++;
         continue;
       }
 
@@ -298,8 +298,10 @@ public:
     //TODO
   }
 
-  bool operator==(LinkedList<T> other) const {
+  bool operator==(LinkedList<T> other) const
+  {
     //TODO
+    return false;
   }
 
 };
@@ -337,6 +339,27 @@ int main () {
   cout << "deleting all notes with a value of 8" << endl;
   list1->deleteAllNodesByPayload(8);
   list1->printList();
+
+  delete list1;
+
+  LinkedList<int>* list2 = new LinkedList<int>();
+  list2->insertNode(1);
+  list2->insertNode(2);
+  list2->insertNode(3);
+  list2->insertNode(4);
+  list2->insertNode(5);
+  list2->insertNode(6);
+  list2->insertNode(8);
+  list2->insertNode(8);
+  list2->insertNode(8);
+  list2->insertNode(8);
+
+  cout << "Created list2: " << endl;
+  list2->printList();
+
+  cout << "deleting all duplicates of above sorted list" << endl;
+  list2->removeDuplicatesOfSorted();
+  list2->printList();
 
   return 0;
 }
