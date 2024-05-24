@@ -298,10 +298,71 @@ public:
     //TODO
   }
 
-  bool operator==(LinkedList<T> other) const
+  //Overloaded equal operator, returns true if the lists are equal 1-1
+  bool operator==(LinkedList<T>& other) const
   {
-    //TODO
-    return false;
+    if(this->head == nullptr)
+    {
+      cout << "The list on the left side of the == operator is empty";
+      return false;
+    }
+
+    if(other.head == nullptr)
+    {
+      cout << "The list on the right side of the == operator is empty";
+      return false;
+    }
+
+    int otherLength = 0;
+    int thisLength = 0;
+
+    Node<T>* thisTemp = this->head;
+    Node<T>* otherTemp = other.head;
+
+    //Count the length of the one list
+    while(thisTemp != nullptr)
+    {
+      thisTemp = thisTemp->next;
+      thisLength++;
+    }
+
+    //Count the length of the other list
+    while(otherTemp != nullptr)
+    {
+      otherTemp = otherTemp->next;
+      otherLength++;
+    }
+
+    cout << "The lenght of this: " << thisLength << " The length of the other: " << otherLength << endl;
+
+    // If list are not of equal length, return false
+    if(thisLength != otherLength)
+    {
+      cout << "List are not of equal length: " << thisLength << "!=" << otherLength << endl;
+      return false;
+    }
+
+    //Reset both temporary node pointers to starting position
+    thisTemp = this->head;
+    otherTemp = other.head;
+
+    while(thisTemp != nullptr && otherTemp != nullptr)
+    {
+      // if the two nodes are not of equal value, return false
+      if(thisTemp->getPayload() != otherTemp->getPayload())
+      {
+        cout << thisTemp->getPayload() << " != " << otherTemp->getPayload() << endl;
+        return false;
+      }
+
+      cout << thisTemp->getPayload() << " == " << otherTemp->getPayload() << endl;
+
+      thisTemp = thisTemp->next;
+      otherTemp = otherTemp->next;
+    }
+
+    // the two list are equal 1-1, return true
+    return true;
   }
 
 };
@@ -357,9 +418,38 @@ int main () {
   cout << "Created list2: " << endl;
   list2->printList();
 
-  cout << "deleting all duplicates of above sorted list" << endl;
+  cout << "deleting all duplicates of sorted list" << endl;
   list2->removeDuplicatesOfSorted();
   list2->printList();
+  delete list2;
+
+  LinkedList<int>* list3 = new LinkedList<int>();
+  list3->insertNode(1);
+  list3->insertNode(2);
+  list3->insertNode(3);
+
+  LinkedList<int>* list4 = new LinkedList<int>();
+  list4->insertNode(1);
+  list4->insertNode(2);
+  list4->insertNode(3);
+
+  if(*list3 == *list4)
+    cout << "\n List3 and list4 are equal" << endl;
+
+  cout << "Removing node number 1 from list3" << endl;
+  list3->deleteNodeByPayload(1);
+
+  if(!(*list3 == *list4))
+    cout << "\n List3 and list4 are no logner equal " << endl;
+
+  list3->insertNode(1);
+  cout << "added number to list 1 at a diffrent point" << endl;
+
+  if(!(*list3 == *list4))
+    cout << "\n List3 and list4 are no logner equal 1-1" << endl;
+
+  delete list3;
+  delete list4;
 
   return 0;
 }
