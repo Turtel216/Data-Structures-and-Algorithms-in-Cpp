@@ -202,11 +202,53 @@ public:
     cout << "Node with specified payload could not be found" << endl;
   }
 
+  // Deletes all nodes with the specified payload value
+  void deleteAllNodesByPayload(T data)
+  {
+    // if head points to null the list is empty
+    if(head == nullptr)
+    {
+      cout << "List empty." << endl;
+      return;
+    }
+
+    // Handle deleting the head node
+    if(head->getPayload() == data)
+    {
+      Node<T>* deleteMe = head;
+      head = head->next;
+      delete deleteMe;
+    }
+
+    Node<T>* prevNode = head;
+    Node<T>* currentNode = head->next;
+    int numberOfDeletedNotes = 0;
+    while(currentNode != nullptr)
+    {
+      // if current node is a match, delete it and skip to next loop iteration
+      if(currentNode->getPayload() == data)
+      {
+        prevNode->next = currentNode->next;
+
+        delete currentNode;
+        currentNode = prevNode->next;
+        
+        numberOfDeletedNotes++;
+        continue;
+      }
+
+      prevNode = currentNode;
+      currentNode = currentNode->next;
+    }
+
+    cout << numberOfDeletedNotes << (numberOfDeletedNotes == 1 ? " has been deleted" : " have been deleted") << endl;
+  }
+
   // TODO overloaded = operator
 
   void removeDuplicates(T data)
   {
-    // TODO
+    //TODO
   }
 
   void sort(bool(*comparator)(T, T))
@@ -230,6 +272,10 @@ int main () {
   list1->insertNode(4);
   list1->insertNode(5);
   list1->insertNode(6);
+  list1->insertNode(8);
+  list1->insertNode(8);
+  list1->insertNode(8);
+  list1->insertNode(8);
 
   list1->printList();
 
@@ -239,6 +285,10 @@ int main () {
 
   cout << "deleting all notes with paylod of 3" << endl;
   list1->deleteNodeByPayload(3);
+  list1->printList();
+
+  cout << "deleting all notes with a value of 8" << endl;
+  list1->deleteAllNodesByPayload(8);
   list1->printList();
 
   return 0;
