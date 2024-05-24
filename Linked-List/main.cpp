@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iterator>
 #include <stdexcept>
 #include <string>
 
@@ -254,7 +255,36 @@ public:
       return;
     }
 
-    //TODO
+    // Handle deleting the head node
+    if(head->getPayload() == head->next->getPayload())
+    {
+      Node<T>* deleteMe = head;
+      head = head->next;
+      delete deleteMe;
+    }
+
+    Node<T>* currentNode = head->next;
+    Node<T>* prevNode = head;
+    int duplicatesDeletedCounter = 0;
+
+    // Iterate over the list
+    while(currentNode != nullptr)
+    {
+      // If the current node has the same value as the next node, delete the current node and continue
+      if(currentNode->getPayload() == currentNode->next->getPayload())
+      {
+        prevNode->next = currentNode->next;
+        delete currentNode;
+        currentNode = prevNode->next;
+        
+        continue;
+      }
+
+      prevNode = currentNode;
+      currentNode = currentNode->next;
+    }
+
+    cout << "Number of deleted duplicates: " << duplicatesDeletedCounter << endl;
 
   }
 
