@@ -53,5 +53,11 @@ int main () {
   list->addToList(node1);
   list->sort(&compareInts);
 
+  delete node1;
+  delete node2;
+  delete node3;
+  
+  delete list;
+
   return 0;
 }
