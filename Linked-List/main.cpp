@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
 
@@ -30,7 +31,23 @@ private:
 
 public:
 
-  LinkedList() { head = nullptr; }
+  LinkedList() noexcept{ head = nullptr; }
+  LinkedList(Node<T>* head) noexcept{ this->head = head; }
+  // Throws exception
+  LinkedList(Node<T>* nodeList[])
+  {
+    // Iterate over the list
+    for(int i =0; i < nodeList->size(); i++)
+    {
+      // if the head is empty, initiralise the head
+      if(head == nullptr)
+      {
+        i == 0 ? head = nodeList[i] : throw; //TODO
+      }
+
+      nodeList[i -1]->next = nodeList[i];
+    }
+  }
 
   ~LinkedList()
   {
@@ -39,7 +56,7 @@ public:
     while(next != nullptr)
     {
       Node<T> *deleteMe = next;
-      next = next->next;  //save pointer to the next node
+      next = next->next;  // save pointer to the next node
       delete deleteMe;    // delete current node
     }
   }
@@ -48,14 +65,14 @@ public:
   {
     Node<T>* newNode = new Node(data);
 
-    // if head is null se new node as head
+    // if head is null set new node as head
     if(head == nullptr)
     {
       head = newNode;
       return;
     }
 
-    // iterate over all nodes until the and is reached
+    // Iterate over all nodes until the end is reached
     Node<T>* tempNode = head;
     while(tempNode->next != nullptr)
     {
@@ -77,7 +94,7 @@ public:
       return;
     }
 
-    // iterate over the list and print each payload
+    // Iterate over the list and print each payload
     while(tempNode != nullptr)
     {
       cout << tempNode->getPayload() << " ";
@@ -105,7 +122,7 @@ public:
       listLength++;
     }
 
-    // if the offset is greater then the length print out of range 
+    // if the offset is greater then the length, print out of range 
     if(listLength > nodeOffset)
     {
       cout << "Index out of range" << endl;
@@ -114,7 +131,7 @@ public:
 
     tempNode1 = head;
 
-    // if the offset is 1 delete the head and assign the next node as the new head
+    // If the offset is 1 delete the head and assign the next node as the new head
     if(nodeOffset == 1)
     {
       head = head->next;
@@ -185,11 +202,6 @@ bool compareInts(int a, int b)
 
 int main () {
 
-  delete node1;
-  delete node2;
-  delete node3;
-  
-  delete list;
 
   return 0;
 }
