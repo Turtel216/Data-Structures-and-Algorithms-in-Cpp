@@ -162,6 +162,7 @@ public:
     }
   }
 
+  // Deletes node by payload value
   void deleteNodeByPayload(T data)
   {
     // if head points to null the list is empty
@@ -177,6 +178,7 @@ public:
       Node<T>* deleteMe = head;
       head = head->next;
       delete deleteMe;
+      return;
     }
 
     Node<T>* prevNode = head;
@@ -187,6 +189,7 @@ public:
       if(currentNode->getPayload() == data)
       {
         prevNode->next = currentNode->next;
+        cout << "Deleted node with paylod: " << currentNode->getPayload() << endl;
         delete currentNode;
         return;
       }
@@ -196,6 +199,11 @@ public:
     }
 
     cout << "Node with specified payload could not be found" << endl;
+  }
+
+  void removeDuplicates(T data)
+  {
+    // TODO
   }
 
   void sort(bool(*comparator)(T, T))
@@ -222,11 +230,11 @@ int main () {
 
   list1->printList();
 
-  cout << "deleting all notes with an offset of 2" << endl;
-  list1->deleteNodes(2);
+  cout << "deleting all notes with an offset of 3" << endl;
+  list1->deleteNodes(3);
   list1->printList();
 
-  cout << "deleting all notes with paylod of 2" << endl;
+  cout << "deleting all notes with paylod of 3" << endl;
   list1->deleteNodeByPayload(3);
   list1->printList();
 
