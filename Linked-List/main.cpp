@@ -56,9 +56,8 @@ public:
     {
       // if the head is empty, initiralise the head
       if(head == nullptr)
-      {
-        i == 0 ? head = nodeList[i] : throw IncompleteListException("The provided list does not contain a valid 0 index node");
-      }
+        i == 0 ? head = nodeList[i] : throw IncompleteListException
+          ("The provided list does not contain a valid 0 index node"); // if the head is not 0 indexed throw exception
 
       nodeList[i -1]->next = nodeList[i];
     }
@@ -138,9 +137,9 @@ public:
     }
 
     // if the offset is greater then the length, print out of range 
-    if(listLength > nodeOffset)
+    if(listLength < nodeOffset)
     {
-      cout << "Index out of range" << endl;
+      cout << "Offset out of range" << endl;
       return;
     }
 
@@ -216,7 +215,19 @@ bool compareInts(int a, int b)
 }
 
 int main () {
+  LinkedList<int>* list1 = new LinkedList<int>();
+  list1->insertNode(1);
+  list1->insertNode(2);
+  list1->insertNode(3);
+  list1->insertNode(4);
 
+  list1->printList();
+
+  list1->deleteNodes(2);
+  list1->printList();
+
+  list1->deleteNodeByPayload(3);
+  list1->printList();
 
   return 0;
 }
