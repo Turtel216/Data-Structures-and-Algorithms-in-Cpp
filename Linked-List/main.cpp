@@ -189,6 +189,7 @@ public:
       if(currentNode->getPayload() == data)
       {
         prevNode->next = currentNode->next;
+
         cout << "Deleted node with paylod: " << currentNode->getPayload() << endl;
         delete currentNode;
         return;
@@ -200,6 +201,8 @@ public:
 
     cout << "Node with specified payload could not be found" << endl;
   }
+
+  // TODO overloaded = operator
 
   void removeDuplicates(T data)
   {
