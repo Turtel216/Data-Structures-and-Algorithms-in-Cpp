@@ -232,7 +232,8 @@ public:
 
         delete currentNode;
         currentNode = prevNode->next;
-        
+    
+        // count how many nodes have been deleted so far
         numberOfDeletedNotes++;
         continue;
       }
@@ -244,7 +245,18 @@ public:
     cout << numberOfDeletedNotes << (numberOfDeletedNotes == 1 ? " has been deleted" : " have been deleted") << endl;
   }
 
-  // TODO overloaded = operator
+  void removeDuplicatesOfSorted(T data)
+  {
+    // if head points to null the list is empty
+    if(head == nullptr)
+    {
+      cout << "List empty." << endl;
+      return;
+    }
+
+    //TODO
+
+  }
 
   void removeDuplicates(T data)
   {
@@ -255,6 +267,11 @@ public:
   {
     //TODO
   }
+
+  bool operator==(LinkedList<T> other) const {
+    //TODO
+  }
+
 };
 
 
