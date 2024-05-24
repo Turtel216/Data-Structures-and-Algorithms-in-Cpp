@@ -111,8 +111,8 @@ public:
     // Iterate over the list and print each payload
     while(tempNode != nullptr)
     {
-      cout << tempNode->getPayload() << " ";
-      tempNode = tempNode->next;
+      cout << tempNode->getPayload() << " " <<endl;;
+      tempNode = tempNode->next; // created segmantatio fault error
     }
   }
 
@@ -156,11 +156,9 @@ public:
     // delete as many nodes as the offset deffines.
     while(nodeOffset-- > 1)
     {
-      tempNode2 = tempNode1;
-
-      tempNode1 = tempNode1->next;
-
-      delete tempNode1;
+      tempNode2 = head;
+      head = head->next;
+      delete tempNode2;
     }
   }
 
@@ -189,7 +187,6 @@ public:
       if(currentNode->getPayload() == data)
       {
         prevNode->next = currentNode->next;
-        currentNode = prevNode->next;
         delete currentNode;
         return;
       }
@@ -220,12 +217,16 @@ int main () {
   list1->insertNode(2);
   list1->insertNode(3);
   list1->insertNode(4);
+  list1->insertNode(5);
+  list1->insertNode(6);
 
   list1->printList();
 
+  cout << "deleting all notes with an offset of 2" << endl;
   list1->deleteNodes(2);
   list1->printList();
 
+  cout << "deleting all notes with paylod of 2" << endl;
   list1->deleteNodeByPayload(3);
   list1->printList();
 
