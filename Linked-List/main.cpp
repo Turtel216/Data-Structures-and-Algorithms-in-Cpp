@@ -1,7 +1,22 @@
 #include <iostream>
 #include <stdexcept>
+#include <string>
 
 using namespace std;
+
+class IncompleteListException : public runtime_error
+{
+  string message;
+public:
+  IncompleteListException(string message):runtime_error(message.c_str())
+  {
+    this->message = message;
+  }
+  const char* what() const noexcept override
+  {
+    return message.c_str();
+  }
+};
 
 template <typename T>
 class Node 
@@ -42,7 +57,7 @@ public:
       // if the head is empty, initiralise the head
       if(head == nullptr)
       {
-        i == 0 ? head = nodeList[i] : throw; //TODO
+        i == 0 ? head = nodeList[i] : throw IncompleteListException("The provided list does not contain a valid 0 index node");
       }
 
       nodeList[i -1]->next = nodeList[i];
