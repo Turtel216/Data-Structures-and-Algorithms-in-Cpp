@@ -27,6 +27,11 @@ private:
 public:
   Node* next;
 
+  Node() noexcept
+  {
+    next = nullptr;
+  }
+
   Node(T data) noexcept
     :payload(data) 
   {
@@ -301,6 +306,7 @@ public:
   //Overloaded equal operator, returns true if the lists are equal 1-1
   bool operator==(LinkedList<T>& other) const
   {
+    // If one of the list's heads points to empty, return false since they are both empty
     if(this->head == nullptr)
     {
       cout << "The list on the left side of the == operator is empty";
@@ -434,22 +440,32 @@ int main () {
   list4->insertNode(3);
 
   if(*list3 == *list4)
-    cout << "\n List3 and list4 are equal" << endl;
+    cout << "\nList3 and list4 are equal" << endl;
 
   cout << "Removing node number 1 from list3" << endl;
   list3->deleteNodeByPayload(1);
 
   if(!(*list3 == *list4))
-    cout << "\n List3 and list4 are no logner equal " << endl;
+    cout << "\nList3 and list4 are no logner equal " << endl;
 
   list3->insertNode(1);
   cout << "added number to list 1 at a diffrent point" << endl;
 
   if(!(*list3 == *list4))
-    cout << "\n List3 and list4 are no logner equal 1-1" << endl;
+    cout << "\nList3 and list4 are no logner equal 1-1" << endl;
 
   delete list3;
   delete list4;
+
+  cout << "Creating list with node array constructor" <<endl;
+  Node<int> listOfNodes[30];
+
+  for(int i = 0; i < 30; i++)
+  {
+    listOfNodes[i].setPayload(i);
+  }
+  LinkedList<int>* list6 = new LinkedList<int>(listOfNodes);
+  list6->printList();
 
   return 0;
 }
