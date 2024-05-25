@@ -1,22 +1,6 @@
 #include <iostream>
-#include <stdexcept>
-#include <string>
 
 using namespace std;
-
-class IncompleteListException : public runtime_error
-{
-  string message;
-public:
-  IncompleteListException(string message):runtime_error(message.c_str())
-  {
-    this->message = message;
-  }
-  const char* what() const noexcept override
-  {
-    return message.c_str();
-  }
-};
 
 template <typename T>
 class Node 
@@ -53,20 +37,6 @@ public:
 
   LinkedList() noexcept{ head = nullptr; }
   LinkedList(Node<T>* head) noexcept{ this->head = head; }
-  // Throws exception
-  LinkedList(Node<T>* nodeList[])
-  {
-    // Iterate over the list
-    for(int i =0; i < nodeList->size(); i++)
-    {
-      // if the head is empty, initiralise the head
-      if(head == nullptr)
-        i == 0 ? head = nodeList[i] : throw IncompleteListException
-          ("The provided list does not contain a valid 0 index node"); // if the head is not 0 indexed throw exception
-
-      nodeList[i -1]->next = nodeList[i];
-    }
-  }
 
   ~LinkedList()
   {
@@ -456,16 +426,6 @@ int main () {
 
   delete list3;
   delete list4;
-
-  cout << "Creating list with node array constructor" <<endl;
-  Node<int> listOfNodes[30];
-
-  for(int i = 0; i < 30; i++)
-  {
-    listOfNodes[i].setPayload(i);
-  }
-  LinkedList<int>* list6 = new LinkedList<int>(listOfNodes);
-  list6->printList();
 
   return 0;
 }
