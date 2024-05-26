@@ -22,8 +22,6 @@ public:
     next = nullptr;
   }
 
-  ~Node() noexcept { delete next; }
-
   void setPayload(T data) noexcept { payload = data; }
   T getPayload() noexcept { return payload; }
 };
