@@ -275,6 +275,8 @@ public:
     Node<T>* tempNode1, *tempNode2, *tempNode3;
     tempNode1 = head;
 
+    int duplicatesDeletedCounter = 0;
+
     // Iterate over list one by one
     while(tempNode1 != nullptr && tempNode1->next != nullptr)
     {
@@ -289,6 +291,7 @@ public:
           auto deleteme = tempNode2->next;
           tempNode2->next = tempNode2->next->next;
           delete deleteme;
+          duplicatesDeletedCounter++;
         }
         else
           tempNode2 = tempNode2->next;
@@ -296,6 +299,8 @@ public:
 
       tempNode1 = tempNode1->next;
     }
+
+    cout << "Number of duplicates deleted: " << duplicatesDeletedCounter << endl;
   }
 
   void sort(bool(*comparator)(T, T)) noexcept
@@ -461,8 +466,8 @@ int main () {
   list5->insertNode(1);
   list5->insertNode(2);
   list5->insertNode(3);
-  list5->insertNode(4);
-  list5->insertNode(5);
+  list5->insertNode(1);
+  list5->insertNode(6);
   list5->insertNode(6);
   list5->insertNode(8);
   list5->insertNode(8);
@@ -470,7 +475,7 @@ int main () {
   list5->insertNode(8);
 
   cout << "Created list5: " << endl;
-  list2->printList();
+  list5->printList();
 
   cout << "deleting all duplicates of unsorted list" << endl;
   list5->removeDuplicates();
