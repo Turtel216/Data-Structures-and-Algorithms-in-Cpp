@@ -22,8 +22,10 @@ public:
     next = nullptr;
   }
 
-  void setPayload(T data) { payload = data; }
-  T getPayload() { return payload; }
+  ~Node() noexcept { delete next; }
+
+  void setPayload(T data) noexcept { payload = data; }
+  T getPayload() noexcept { return payload; }
 };
 
 
@@ -38,7 +40,7 @@ public:
   LinkedList() noexcept{ head = nullptr; }
   LinkedList(Node<T>* head) noexcept{ this->head = head; }
 
-  ~LinkedList()
+  ~LinkedList() noexcept
   {
     Node<T> *next = head;
     
@@ -50,7 +52,7 @@ public:
     }
   }
 
-  void insertNode(T data)
+  void insertNode(T data) noexcept
   {
     Node<T>* newNode = new Node(data);
 
@@ -72,7 +74,7 @@ public:
     tempNode->next = newNode;
   }
 
-  void printList()
+  void printList() noexcept
   {
     Node<T>* tempNode = head;
 
@@ -86,13 +88,13 @@ public:
     // Iterate over the list and print each payload
     while(tempNode != nullptr)
     {
-      cout << tempNode->getPayload() << " " <<endl;;
+      cout << tempNode->getPayload() <<endl;;
       tempNode = tempNode->next; // created segmantatio fault error
     }
   }
 
   // Deletes all notes from head to the number of nodes the offset defines
-  void deleteNodes(int nodeOffset)
+  void deleteNodes(int nodeOffset) noexcept
   {
     Node<T> *tempNode1 = head, *tempNode2 = nullptr;
     int listLength = 0;   // Length of the linked list
@@ -138,7 +140,7 @@ public:
   }
 
   // Deletes node by payload value
-  void deleteNodeByPayload(T data)
+  void deleteNodeByPayload(T data) noexcept
   {
     // if head points to null the list is empty
     if(head == nullptr)
@@ -178,7 +180,7 @@ public:
   }
 
   // Deletes all nodes with the specified payload value
-  void deleteAllNodesByPayload(T data)
+  void deleteAllNodesByPayload(T data) noexcept
   {
     // if head points to null the list is empty
     if(head == nullptr)
@@ -220,7 +222,7 @@ public:
     cout << numberOfDeletedNotes << (numberOfDeletedNotes == 1 ? " has been deleted" : " have been deleted") << endl;
   }
 
-  void removeDuplicatesOfSorted()
+  void removeDuplicatesOfSorted() noexcept
   {
     // if head points to null the list is empty
     if(head == nullptr)
@@ -263,12 +265,12 @@ public:
 
   }
 
-  void removeDuplicates(T data)
+  void removeDuplicates(T data) noexcept
   {
     //TODO
   }
 
-  void sort(bool(*comparator)(T, T))
+  void sort(bool(*comparator)(T, T)) noexcept
   {
     //TODO
   }
