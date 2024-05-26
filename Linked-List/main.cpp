@@ -265,9 +265,39 @@ public:
 
   }
 
-  void removeDuplicates(T data) noexcept
+  void removeDuplicates() noexcept
   {
-    //TODO
+    // if head points to null the list is empty
+    if(head == nullptr)
+    {
+      cout << "List empty." << endl;
+      return;
+    }
+
+    Node<T>* tempNode1, *tempNode2, *tempNode3;
+    tempNode1 = head;
+
+    // Iterate over list one by one
+    while(tempNode1 != nullptr && tempNode1->next != nullptr)
+    {
+      tempNode2 = tempNode1;
+
+      // Compare eleemnts
+      while(tempNode2->next != nullptr)
+      {
+        // If duplicate then delete it 
+        if(tempNode1->getPayload() == tempNode2->next->getPayload())
+        {
+          auto deleteme = tempNode2->next;
+          tempNode2->next = tempNode2->next->next;
+          delete deleteme;
+        }
+        else
+          tempNode2 = tempNode2->next;
+      }
+
+      tempNode1 = tempNode1->next;
+    }
   }
 
   void sort(bool(*comparator)(T, T)) noexcept
@@ -276,7 +306,7 @@ public:
   }
 
   //Overloaded equal operator, returns true if the lists are equal 1-1
-  bool operator==(LinkedList<T>& other) const
+  bool operator==(LinkedList<T>& other) const noexcept
   {
     // If one of the list's heads points to empty, return false since they are both empty
     if(this->head == nullptr)
@@ -429,5 +459,24 @@ int main () {
   delete list3;
   delete list4;
 
+  LinkedList<int>* list5 = new LinkedList<int>();
+  list5->insertNode(1);
+  list5->insertNode(2);
+  list5->insertNode(3);
+  list5->insertNode(4);
+  list5->insertNode(5);
+  list5->insertNode(6);
+  list5->insertNode(8);
+  list5->insertNode(8);
+  list5->insertNode(8);
+  list5->insertNode(8);
+
+  cout << "Created list5: " << endl;
+  list2->printList();
+
+  cout << "deleting all duplicates of unsorted list" << endl;
+  list5->removeDuplicates();
+  list5->printList();
+  delete list5;
   return 0;
 }
