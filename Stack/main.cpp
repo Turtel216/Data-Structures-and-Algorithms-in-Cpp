@@ -1,16 +1,16 @@
 #include <iostream>
 
 /*
-This an implementation of a the Stack data strcucture
-using a dynamic array and tempaltes. It has the following methods
+This is an implementation of a the Stack data strcucture
+using a dynamic array and templates. It has the following methods
   
   - 'push': which adds an element to the stack
   - 'pop': which removes an element from the stack
   - 'printContent': which displays the content of the stack
-  - `growArray`: which increases the size of dynamic array
-  - `shrinkArray`: which decreases the size of dynamic growArray
+  - `growArray`: which increases the size of the dynamic array
+  - `shrinkArray`: which decreases the size of the dynamic growArray
 
-Also the '==' operator has been overloead and return true if both 
+Also the '==' operator has been overloead and returns true if both 
 stacks have the same size
 */
 
