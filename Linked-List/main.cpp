@@ -27,8 +27,8 @@ methods:
   it return true if both lists are equal 1-1
 
 NOTE: The removeDuplicates method uses a less efficient algorithm
-on purpose. It would be more efficient to first sort the algorithm
-using mergeSort and then use removeDuplicatesOfSorted. This approach
+on purpose. It would be more efficient to first sort the list using
+mergeSort and then use removeDuplicatesOfSorted. This approach
 would have an overall time complexity of O(n log n), but since this 
 would not require any new code to be written a diffrent method was chosen
 */
