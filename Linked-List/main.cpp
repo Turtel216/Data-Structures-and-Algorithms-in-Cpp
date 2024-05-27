@@ -71,7 +71,7 @@ private:
     else
     {
       result = second;
-      result->next = merge(first->next, second);
+      result->next = merge(first, second->next);
     }
     
     return (result);
@@ -556,6 +556,8 @@ int main () {
   cout << "Sorting unsorted list" << endl;
   list6->mergeSort(&list6->head);
   list6->printList();
+
+  delete list6;
 
   return 0;
 }
