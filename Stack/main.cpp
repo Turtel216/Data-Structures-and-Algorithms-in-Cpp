@@ -1,5 +1,18 @@
 #include <iostream>
 
+/*
+This an implementation of a the Stack data strcucture
+using a dynamic array and tempaltes. It has the following methods
+  
+  - 'push': which adds an element to the stack
+  - 'pop': which removes an element from the stack
+  - 'printContent': which displays the content of the stack
+  - `growArray`: which increases the size of dynamic array
+  - `shrinkArray`: which decreases the size of dynamic array
+*/
+
+
+
 using namespace std;
 
 // Implemented using dynamic array
@@ -11,6 +24,43 @@ private:
   T* array;
   size_t size;
   int capacity;
+
+  // Increases the size of array
+  void growArray() noexcept
+  {
+    capacity = capacity * 2;
+
+    // Create a new array of double size
+    T* temp = new T[capacity];
+
+    // Copy elements of old array to new array
+    for(auto i = 0; i < size; i++)
+      temp[i] = array[i];
+
+    // delete old array
+    delete[] array;
+
+    // Assign new array to class array
+    array = temp;
+  }
+
+  // Decreases the size of array
+  void shrinkArray() noexcept
+  {
+    //creating new array by half size
+    capacity = size;
+    T* temp = new T[capacity];
+
+    // Copy elements of old array to new array
+    for(auto i = 0; i < size; i++)
+      temp[i] = array[i];
+
+    // delete old array
+    delete[] array;
+
+    // Assign new array to class array
+    array = temp;
+  }
 
 public:
   
@@ -31,47 +81,11 @@ public:
   }
 
   // Getters
-  size_t getSize() { return size; }
-  int getCapacity() { return capacity; }
+  size_t getSize() const noexcept { return size; }
+  int getCapacity() const noexcept { return capacity; }
 
-  // Method to grow the Array
-  void growArray()
-  {
-    capacity = capacity * 2;
-
-    // Create a new array of double size
-    T* temp = new T[capacity];
-
-    // Copy elements of old array to new array
-    for(auto i = 0; i < size; i++)
-      temp[i] = array[i];
-
-    // delete old array
-    delete[] array;
-
-    // Assign new array to class array
-    array = temp;
-  }
-
-  // Method to shrink the Array
-  void shrinkArray()
-  {
-    //creating new array by half size
-    capacity = size;
-    T* temp = new T[capacity];
-
-    // Copy elements of old array to new array
-    for(auto i = 0; i < size; i++)
-      temp[i] = array[i];
-
-    // delete old array
-    delete[] array;
-
-    // Assign new array to class array
-    array = temp;
-  }
-
-  void push(T value)
+  // adds a new element to the stack
+  void push(T value) noexcept
   {
     // check if the array can store the new element
     if(size == capacity)
@@ -84,7 +98,8 @@ public:
     size++;
   }
 
-  void pop()
+  // removes an element from the stack
+  void pop() noexcept
   {
     // Replace the last index 0
     array[size - 1] = 0;
@@ -97,7 +112,8 @@ public:
       shrinkArray();
   }
 
-  void printContent()
+  // displays the content of the stack
+  void printContent() noexcept
   {
     for(auto i = 0; i < size; i++)
       cout << array[i] << endl;
