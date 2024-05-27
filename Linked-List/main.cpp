@@ -4,7 +4,7 @@
 using namespace std;
 
 /*
-NOTES: This implementation of the linked list
+This implementation of the linked list
 data structure using templates has the following
 methods:
   - insertNode, which adds a node to the list
