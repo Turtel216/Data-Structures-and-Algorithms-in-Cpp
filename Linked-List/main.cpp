@@ -4,33 +4,22 @@
 using namespace std;
 
 /*
-This implementation of the linked list
-data structure using templates has the following
-methods:
-  - insertNode, which adds a node to the list
-  - printList, which displays the value of each
-  node in the console
-  - deleteNodeByPayload, which deletes the first node
-  with the specified value
-  - deleteAllNodesByPayload, which deletes all nodes 
-  with the specified value 
-  - deleteNodes, which deletes all nodes from
-  the beginning of the list until the number 
-  specified by the method parameter
-  - removeDuplicatesOfSorted, which removes all duplicates
-  of a sorted list
-  - removeDuplicates, which removes all duplicates of an 
-  unsorted list
-  - mergeSort, which sorts the list using the Merg Sort 
-  algorithm.
-  - Also the '==' operator has been overloaded for this class.
-  it return true if both lists are equal 1-1
+This implementation of the linked list data structure using templates has the following methods:**
 
-NOTE: The removeDuplicates method uses a less efficient algorithm
-on purpose. It would be more efficient to first sort the list using
-mergeSort and then use removeDuplicatesOfSorted. This approach
-would have an overall time complexity of O(n log n), but since this 
-would not require any new code to be written a diffrent method was chosen
+- `insertNode`: Adds a node to the list.
+- `printList`: Displays the value of each node in the console.
+- `deleteNodeByPayload`: Deletes the first node with the specified value.
+- `deleteAllNodesByPayload`: Deletes all nodes with the specified value.
+- `deleteNodes`: Deletes all nodes from the beginning of the list until the number specified by the method parameter.
+- `removeDuplicatesOfSorted`: Removes all duplicates from a sorted list.
+- `removeDuplicates`: Removes all duplicates from an unsorted list.
+- `mergeSort`: Sorts the list using the Merge Sort algorithm.
+
+Also, the '==' operator has been overloaded for this class. It returns true if both lists are equal element by element.**
+
+NOTE: The `removeDuplicates` method uses a less efficient algorithm on purpose. It would be more efficient to first sort the
+list using `mergeSort` and then use `removeDuplicatesOfSorted`. This approach would have an overall time complexity of O(n log n),
+but since this would not require any new code to be written, a different method was chosen.
 */
 
 template <typename T>
