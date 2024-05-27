@@ -71,6 +71,32 @@ public:
     array = temp;
   }
 
+  void push(T value)
+  {
+    // check if the array can store the new element
+    if(size == capacity)
+      growArray(); // if not, grow the array
+
+    // insert element
+    array[size] = value;
+
+    // increment the size
+    size++;
+  }
+
+  void pop()
+  {
+    // Replace the last index 0
+    array[size - 1] = 0;
+
+    // Decrement the array size
+    size--;
+
+    // Reduce if the size is half of its capacity
+    if(size == (capacity / 2))
+      shrinkArray();
+  }
+
   void printContent()
   {
     for(auto i = 0; i < size; i++)
@@ -84,6 +110,26 @@ public:
 };
 
 int main () {
+
+  Stack<int> stack;
+
+  stack.push(2);
+  stack.push(4);
+  stack.push(1);
+
+  cout << "Pushed 3 elements into the stack" << endl;
+  stack.printContent();
+
+  stack.pop();
+  stack.pop();
   
+  cout << "Poped 2 elements from the stack" << endl;
+  stack.printContent();
+
+  stack.push(111);
+
+  cout << "Pushed one more element into the stack" << endl;
+  stack.printContent();
+
   return 0;
 }
