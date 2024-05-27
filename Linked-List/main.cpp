@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 
 using namespace std;
@@ -31,7 +32,6 @@ template <typename T>
 class LinkedList
 {
 private:
-  Node<T>* head;
 
   void splitList(Node<T>* source, Node<T>** firstRef, Node<T>** secondRef) noexcept
   {
@@ -53,7 +53,7 @@ private:
     slow->next = nullptr;
   }
 
-  Node<T>* merge(Node<T>* first, Node<T>* second, bool(**comparator)(T, T)) noexcept
+  Node<T>* merge(Node<T>* first, Node<T>* second) noexcept
   {
     Node<T>* result = nullptr;
 
@@ -63,21 +63,23 @@ private:
         return(first);
 
     // if the payload of the first is <= the payload of the second pick first, else pick second
-    if(comparator(first->getPayload(), second->getPayload()))
+    if(first->getPayload() <= second->getPayload())
     {
       result = first;
-      result->next = merge(first->next, second, comparator);
+      result->next = merge(first->next, second);
     }
     else
     {
       result = second;
-      result->next = merge(first->next, second, comparator);
+      result->next = merge(first->next, second);
     }
     
     return (result);
   }
 
 public:
+
+  Node<T>* head;
 
   LinkedList() noexcept{ head = nullptr; }
   LinkedList(Node<T>* head) noexcept{ this->head = head; }
@@ -347,10 +349,10 @@ public:
     cout << "Number of duplicates deleted: " << duplicatesDeletedCounter << endl;
   }
 
-  void mergeSort(bool(**comparator)(T, T), Node<T>** headRef) noexcept
+  void mergeSort(Node<T>** headRef) noexcept
   {
     Node<T> *tempHead, *first, *second;
-    tempHead = headRef;
+    tempHead = *headRef;
 
     // check if list is empty
     if(tempHead == nullptr || tempHead->next == nullptr)
@@ -364,7 +366,7 @@ public:
     mergeSort(&second);
 
     // merge the two sorted lists
-    *headRef = SortedMerge(first, second, comparator);
+    *headRef = merge(first, second);
   }
 
   //Overloaded equal operator, returns true if the lists are equal 1-1
@@ -540,5 +542,20 @@ int main () {
   list5->removeDuplicates();
   list5->printList();
   delete list5;
+
+  LinkedList<int>* list6 = new LinkedList<int>();
+  list6->insertNode(5);
+  list6->insertNode(2);
+  list6->insertNode(7);
+  list6->insertNode(19);
+  list6->insertNode(22);
+
+  cout << "Created list6: " << endl;
+  list6->printList();
+
+  cout << "Sorting unsorted list" << endl;
+  list6->mergeSort(&list6->head);
+  list6->printList();
+
   return 0;
 }
