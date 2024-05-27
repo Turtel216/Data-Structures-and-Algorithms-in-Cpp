@@ -10,7 +10,7 @@ private:
   T payload;
 
 public:
-  Node* next;
+  Node* next; // next is set to public, for faster development of this project
 
   Node() noexcept
   {
@@ -33,11 +33,13 @@ class LinkedList
 {
 private:
 
+  // split the nodes of given list itno two halves
   void splitList(Node<T>* source, Node<T>** firstRef, Node<T>** secondRef) noexcept
   {
     Node<T>* slow = source;
     Node<T>* fast = source->next;
 
+    // with each iteration 'fast' advances by 2 notes and 'slow' with one note at a time
     while(fast != nullptr)
     {
       fast = fast->next;
@@ -49,10 +51,11 @@ private:
     }
 
     *firstRef = source;
-    *secondRef = slow->next;
+    *secondRef = slow->next; // mid point of the list
     slow->next = nullptr;
   }
 
+  // Merges two lists
   Node<T>* merge(Node<T>* first, Node<T>* second) noexcept
   {
     Node<T>* result = nullptr;
@@ -354,7 +357,7 @@ public:
     Node<T> *tempHead, *first, *second;
     tempHead = *headRef;
 
-    // check if list is empty
+    // check if list is empty or has a length of 1
     if(tempHead == nullptr || tempHead->next == nullptr)
       return;
 
@@ -439,12 +442,6 @@ public:
 
 };
 
-
-// Temporery test function
-bool compareInts(int a, int b)
-{
-  return a<=b;
-}
 
 int main () {
   LinkedList<int>* list1 = new LinkedList<int>();
