@@ -3,6 +3,36 @@
 
 using namespace std;
 
+/*
+NOTES: This implementation of the linked list
+data structure using templates has the following
+methods:
+  - insertNode, which adds a node to the list
+  - printList, which displays the value of each
+  node in the console
+  - deleteNodeByPayload, which deletes the first node
+  with the specified value
+  - deleteAllNodesByPayload, which deletes all nodes 
+  with the specified value 
+  - deleteNodes, which deletes all nodes from
+  the beginning of the list until the number 
+  specified by the method parameter
+  - removeDuplicatesOfSorted, which removes all duplicates
+  of a sorted list
+  - removeDuplicates, which removes all duplicates of an 
+  unsorted list
+  - mergeSort, which sorts the list using the Merg Sort 
+  algorithm.
+  - Also the '==' operator has been overloaded for this class.
+  it return true if both lists are equal 1-1
+
+NOTE: The removeDuplicates method uses a less efficient algorithm
+on purpose. It would be more efficient to first sort the algorithm
+using mergeSort and then use removeDuplicatesOfSorted. This approach
+would have an overall time complexity of O(n log n), but since this 
+would not require any new code to be written a diffrent method was chosen
+*/
+
 template <typename T>
 class Node 
 {
