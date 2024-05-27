@@ -33,6 +33,50 @@ class LinkedList
 private:
   Node<T>* head;
 
+  void splitList(Node<T>* source, Node<T>** firstRef, Node<T>** secondRef) noexcept
+  {
+    Node<T>* slow = source;
+    Node<T>* fast = source->next;
+
+    while(fast != nullptr)
+    {
+      fast = fast->next;
+      if(fast != nullptr)
+      {
+        slow = slow->next;
+        fast = fast->next;
+      }
+    }
+
+    *firstRef = source;
+    *secondRef = slow->next;
+    slow->next = nullptr;
+  }
+
+  Node<T>* merge(Node<T>* first, Node<T>* second, bool(**comparator)(T, T)) noexcept
+  {
+    Node<T>* result = nullptr;
+
+    if(first == nullptr)
+      return (second);
+    else if(second == nullptr)
+        return(first);
+
+    // if the payload of the first is <= the payload of the second pick first, else pick second
+    if(comparator(first->getPayload(), second->getPayload()))
+    {
+      result = first;
+      result->next = merge(first->next, second, comparator);
+    }
+    else
+    {
+      result = second;
+      result->next = merge(first->next, second, comparator);
+    }
+    
+    return (result);
+  }
+
 public:
 
   LinkedList() noexcept{ head = nullptr; }
@@ -303,9 +347,24 @@ public:
     cout << "Number of duplicates deleted: " << duplicatesDeletedCounter << endl;
   }
 
-  void sort(bool(*comparator)(T, T)) noexcept
+  void mergeSort(bool(**comparator)(T, T), Node<T>** headRef) noexcept
   {
-    //TODO
+    Node<T> *tempHead, *first, *second;
+    tempHead = headRef;
+
+    // check if list is empty
+    if(tempHead == nullptr || tempHead->next == nullptr)
+      return;
+
+    // split lists
+    splitList(tempHead, &first, &second);
+
+    // Recursively sort the sublists
+    mergeSort(&first);
+    mergeSort(&second);
+
+    // merge the two sorted lists
+    *headRef = SortedMerge(first, second, comparator);
   }
 
   //Overloaded equal operator, returns true if the lists are equal 1-1
@@ -382,7 +441,7 @@ public:
 // Temporery test function
 bool compareInts(int a, int b)
 {
-  return a<b;
+  return a<=b;
 }
 
 int main () {
