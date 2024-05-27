@@ -8,7 +8,10 @@ using a dynamic array and tempaltes. It has the following methods
   - 'pop': which removes an element from the stack
   - 'printContent': which displays the content of the stack
   - `growArray`: which increases the size of dynamic array
-  - `shrinkArray`: which decreases the size of dynamic array
+  - `shrinkArray`: which decreases the size of dynamic growArray
+
+Also the '==' operator has been overloead and return true if both 
+stacks have the same size
 */
 
 
@@ -123,6 +126,12 @@ public:
   {
     return size == 0;
   }
+
+  // Retruns true if both stacks have the same size
+  bool operator==(Stack<T> &other) const noexcept
+  {
+    return this->size == other.size;
+  }
 };
 
 int main () {
@@ -146,6 +155,17 @@ int main () {
 
   cout << "Pushed one more element into the stack" << endl;
   stack.printContent();
+
+  Stack<int> stack2;
+  
+  stack2.push(2);
+  stack2.push(3);
+
+  cout << "Created new Stack, which contains 2 elements" << endl;
+  stack2.printContent();
+
+  if(stack == stack2)
+    cout << "Both stacks have the same size" << endl;
 
   return 0;
 }
