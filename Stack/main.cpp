@@ -116,7 +116,7 @@ public:
   }
 
   // displays the content of the stack
-  void printContent() noexcept
+  void printContent() const noexcept
   {
     for(auto i = 0; i < size; i++)
       cout << array[i] << endl;

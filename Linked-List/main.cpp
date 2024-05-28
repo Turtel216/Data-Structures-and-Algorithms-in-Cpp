@@ -140,7 +140,7 @@ public:
     tempNode->next = newNode;
   }
 
-  void printList() noexcept
+  void printList() const noexcept
   {
     Node<T>* tempNode = head;
 
