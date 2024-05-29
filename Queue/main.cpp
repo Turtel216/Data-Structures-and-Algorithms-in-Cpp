@@ -5,13 +5,13 @@ class Queue
 {
 private:
   T *array;
-  int front, rear;
+  size_t front, rear;
   size_t size;
   size_t capacity;
 
 public:
 
-  Queue(size_t capacity)
+  Queue(size_t capacity) noexcept
   {
     this->capacity = capacity;
     this->size = this->front = 0;
@@ -38,7 +38,7 @@ public:
       std::cout << "List is empty" << std::endl;
 
     // Iterate over the list and print each element
-    for(int i = 0; i < size; i++)
+    for(int i = front; i <= rear; i++)
       std::cout << array[i] << std::endl;
 
   }
@@ -63,13 +63,13 @@ public:
     if (isEmpty())
     {
       std::cout << "The Queue is empty, no element can be added" << std::endl;
-      return NULL; //TODO throw exception
+      return 0; //TODO throw exception
     }
 
     // get front item
     auto item = array[front];
     // set new front
-    front = (array[front + 1]) % capacity;
+    front = (front + 1) % capacity;
     size--;
     return item;
 
@@ -80,4 +80,19 @@ public:
 int main()
 {
   Queue<int>* queue = new Queue<int>(5);
+
+  queue->add(1);
+  queue->add(5);
+  queue->add(2);
+  queue->add(4);
+
+  std::cout << "Added 4 items to queue" << std::endl;
+  queue->display();
+
+  std::cout << "Item in the front of the queue is: " << queue->dequeue() << std::endl;
+
+  std::cout << "The now updated queue is :" << std::endl;
+  queue->display();
+
+  return 0;
 }
