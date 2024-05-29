@@ -1,6 +1,22 @@
 #include <exception>
 #include <iostream>
 
+/*
+This is a simple implementation of a static queue
+using templates. Both enqueue and dequeue have a 
+time complexity of O(1) but no alteration of the 
+queue size is possible. The Queue class has the
+following method:
+    - 'add' which adds a new item to the queue
+    - 'dequeue' which removes an item from the queue
+    and returns it.
+    - 'display' which displays the content of the queue
+    - 'isEmpty' and 'isFull' which return true if the 
+    queue is empty or full respectively
+
+Also if add or dequeue is not possible, the class throws an QueueException
+*/
+
 class QueueException : public std::exception
 {
 private:
@@ -31,9 +47,12 @@ public:
   Queue(size_t capacity) noexcept
   {
     this->capacity = capacity;
+    // set front to beginning of the queue
     this->size = this->front = 0;
 
+    // set rear to the end of the queue
     this->rear = capacity - 1;
+    // allowcate memory for the queue
     this->array =  new T[this->capacity];
   }
 
