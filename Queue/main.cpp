@@ -56,7 +56,7 @@ public:
     this->array =  new T[this->capacity];
   }
 
-  ~Queue() noexcept { delete array; }
+  ~Queue() noexcept { delete[] array; }
 
   // Getters
   int getFront() const noexcept { return front; }
