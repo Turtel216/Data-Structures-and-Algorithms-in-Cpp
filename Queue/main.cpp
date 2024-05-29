@@ -1,4 +1,21 @@
+#include <exception>
 #include <iostream>
+
+class QueueException : public std::exception
+{
+private:
+  std::string message;
+
+public:
+  QueueException(const char* msg)
+    : message(msg)
+  {}
+
+  const char* what() const throw()
+  {
+    return message.c_str();
+  }
+};
 
 template <typename T>
 class Queue 
@@ -44,14 +61,11 @@ public:
   }
 
   // adds a new item to the queue
-  void add(T item) noexcept
+  void add(T item)
   {
-    // Check if the queue is full
+    // If the list is full, throw exception
     if (isFull())
-    {
-      std::cout << "The Queue is full, no element can be added" << std::endl;
-      return;
-    }
+      throw QueueException("The Queue is full, no element can be added");
 
     rear = (rear + 1) % capacity;
     array[rear] = item;
@@ -60,11 +74,9 @@ public:
 
   T dequeue()
   {
+    // If the list is empty, throw exception
     if (isEmpty())
-    {
-      std::cout << "The Queue is empty, no element can be added" << std::endl;
-      return 0; //TODO throw exception
-    }
+      throw QueueException("The queue is empty, no element can be added");
 
     // get front item
     auto item = array[front];
