@@ -56,6 +56,8 @@ public:
     this->array =  new T[this->capacity];
   }
 
+  ~Queue() noexcept { delete array; }
+
   // Getters
   int getFront() const noexcept { return front; }
   int getRear() const noexcept { return rear; }
@@ -124,6 +126,8 @@ int main()
 
   std::cout << "The now updated queue is :" << std::endl;
   queue->display();
+
+  delete queue;
 
   return 0;
 }
