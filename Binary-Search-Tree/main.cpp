@@ -42,7 +42,7 @@ public:
   {}
 
   // Method to insert a new node into the tree
-  void insert(T item) noexcept
+  void insert(T item) noexcept //TODO does not work!
   {
     // If the tree is empty set the new node as the root
     Node<T>* newNode = new Node<T>(item);
@@ -95,9 +95,10 @@ public:
         continue;
       }
       // if the item is > the childs value, take the right path
-      else if (tempNode->getValue() > item)
+      else
       {
         tempNode = tempNode->rChild;
+        continue;
       }
     }
 
