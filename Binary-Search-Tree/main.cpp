@@ -27,13 +27,13 @@ private:
 
   void traverseRecursively(Node<T>* node)
   {
-    if (node == nullptr)
-      return;
+    if (node != nullptr)
+    {
+      traverseRecursively(node->lChild);
+      std::cout << " " << node->getValue() << "\n";
+      traverseRecursively(node->rChild);
+    }
 
-    std::cout << node->getValue() << "\n";
-
-    traverseRecursively(node->lChild);
-    traverseRecursively(node->rChild);
   }
 
 public:
