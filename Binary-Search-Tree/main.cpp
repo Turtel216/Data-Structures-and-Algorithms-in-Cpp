@@ -24,6 +24,17 @@ class Tree
 private:
   Node<T>* root;
 
+  void traverseRecursively(Node<T>* node)
+  {
+    if (node == nullptr)
+      return;
+
+    std::cout << node->getValue() << "\n";
+
+    traverseRecursively(node->lChild);
+    traverseRecursively(node->rChild);
+  }
+
 public:
 
   Tree() noexcept
@@ -35,7 +46,7 @@ public:
   {
     // If the tree is empty set the new node as the root
     Node<T>* newNode = new Node<T>(item);
-    if (root != nullptr)
+    if (root == nullptr)
     {
       root = newNode;
       return;
@@ -46,7 +57,7 @@ public:
     while(tempNode != nullptr)
     {
       // if the item is <= the childs value, take the left path
-      if(tempNode->getValue() <= item)
+      if(tempNode->getValue() < item)
       {
         tempNode = tempNode->lChild;
         continue;
@@ -55,12 +66,15 @@ public:
       else if (tempNode->getValue() > item)
       {
         tempNode = tempNode->rChild;
+        continue;
       }
-
-      // set the new node equal to the correct null child
-      tempNode = newNode;
+      else
+      {
+        // set the new node equal to the correct null child
+        tempNode = newNode;
+        break;
+      }
     }
-
   }
 
   // searches a specific item from the tree
@@ -96,13 +110,24 @@ public:
   }
 
   // Displays the contents of the tree
-  void display() const noexcept
+  void display() noexcept
   {
-    //TODO
+    auto tempNode = root;
+    // calling the recursive method
+    traverseRecursively(tempNode);
   }
 };
 
 int main()
 {
+  Tree<int>* tree = new Tree<int>();
+  tree->insert(5);
+  tree->insert(2);
+  tree->insert(8);
+  tree->insert(3);
+  tree->insert(4);
+
+  std::cout << "Created tree with 5 nodes" << std::endl;
+  tree->display();
   return 0;
 }
