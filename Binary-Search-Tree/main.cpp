@@ -16,6 +16,7 @@ public: // both pointers are publac for faster development
 
   //Getter for value
   T getValue() const noexcept { return value; }
+  void setValue(T item) noexcept { value = item; }
 };
 
 template<typename T>
@@ -45,19 +46,18 @@ public:
   void insert(T item) noexcept //TODO does not work!
   {
     // If the tree is empty set the new node as the root
-    Node<T>* newNode = new Node<T>(item);
     if (root == nullptr)
     {
-      root = newNode;
+      root = new Node<T>(item);
       return;
     }
 
     // Traverse the tree until a null child is found
     auto tempNode = root;
-    while(tempNode != nullptr)
+    while (tempNode != nullptr)
     {
       // if the item is <= the childs value, take the left path
-      if(tempNode->getValue() < item)
+      if (tempNode->getValue() <= item)
       {
         tempNode = tempNode->lChild;
         continue;
@@ -68,13 +68,9 @@ public:
         tempNode = tempNode->rChild;
         continue;
       }
-      else
-      {
-        // set the new node equal to the correct null child
-        tempNode = newNode;
-        break;
-      }
     }
+
+    tempNode = new Node<T>(item);
   }
 
   // searches a specific item from the tree
