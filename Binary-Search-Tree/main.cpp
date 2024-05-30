@@ -59,18 +59,28 @@ public:
       // if the item is <= the childs value, take the left path
       if (tempNode->getValue() <= item)
       {
+        // If the left child is empty, insert the new item there
+        if (tempNode->lChild == nullptr)
+        {
+          tempNode->lChild = new Node<T>(item);
+          return;
+        }
+
         tempNode = tempNode->lChild;
-        continue;
       }
       // if the item is > the childs value, take the right path
-      else if (tempNode->getValue() > item)
+      else
       {
+        // If the right child is empty, insert the new item there
+        if (tempNode->rChild == nullptr)
+        {
+          tempNode->rChild = new Node<T>(item);
+          return;
+        }
+
         tempNode = tempNode->rChild;
-        continue;
       }
     }
-
-    tempNode = new Node<T>(item); // causes bug!!!!
   }
 
   // searches a specific item from the tree
