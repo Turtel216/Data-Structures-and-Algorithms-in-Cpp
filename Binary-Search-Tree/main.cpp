@@ -70,7 +70,7 @@ public:
       }
     }
 
-    tempNode = new Node<T>(item);
+    tempNode = new Node<T>(item); // causes bug!!!!
   }
 
   // searches a specific item from the tree
