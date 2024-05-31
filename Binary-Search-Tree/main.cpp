@@ -181,10 +181,10 @@ public:
     if (node == nullptr)
       return;
 
-    std::cout << " " << node->getValue() << "\n";
-
     postorder(node->lChild);
     postorder(node->rChild);
+
+    std::cout << " " << node->getValue() << "\n";
   }
 
   void postorder(Node<T>* node)
@@ -192,10 +192,10 @@ public:
     if (node == nullptr)
       return;
 
-    std::cout << " " << node->getValue() << "\n";
-
     postorder(node->lChild);
     postorder(node->rChild);
+    
+    std::cout << " " << node->getValue() << "\n";
   }
 };
 
