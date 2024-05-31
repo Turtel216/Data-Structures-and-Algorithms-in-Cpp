@@ -131,7 +131,36 @@ public:
 
   void remove(T item) noexcept
   {
-    //TODO
+    // search for the node 
+    auto node = search(item);
+
+    // If the node is a lead node, delete the node
+    if (node->lChild == nullptr && node->rChild == nullptr)
+    {
+      delete node;
+      return;
+    }
+    // If the node has a single left child, copy the child and delete the node
+    else if (node->lChild == nullptr)
+    {
+      auto deleteme = node;
+      node = node->lChild;
+      delete node;
+      return;
+    }
+    // If the node has a single right child, copy the child and delete the node
+    else if (node->rChild == nullptr)
+    {
+      auto deleteme = node;
+      node = node->rChild;
+      delete node;
+      return;
+    }
+    // else delete the node with both children and replace it with the inorder successor
+    else 
+    {
+      //TODO
+    }
   }
 
   void inorder()
