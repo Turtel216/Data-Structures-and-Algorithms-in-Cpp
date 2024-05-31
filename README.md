@@ -1,4 +1,4 @@
-# Data structures and algorithms in C++
+# Data Structures and Algorithms in C++
 
 ## About
 
@@ -6,7 +6,7 @@ A project started for educational purposes, containing implementations of DAs in
 
 ## This project contains so far
 
- - Linked list 
- - Stack
- - Queue
+ - [Linked List](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/Linked-List)
+ - [Stack](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/Stack)
+ - [Queue](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/Queue)
  - Binary search tree(currently being worked on)
