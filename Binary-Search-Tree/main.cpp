@@ -1,4 +1,24 @@
+#include <exception>
 #include <iostream>
+#include <ostream>
+#include <string>
+
+// Exception for when a specified node could not be found
+class NodeNotFoundException : std::exception
+{
+private:
+  std::string message;
+
+public:
+  NodeNotFoundException(const char* msg) noexcept
+    : message(msg)
+  {}
+
+  const char* what() const throw()
+  {
+    return message.c_str();
+  }
+};
 
 template<typename T>
 class Node 
@@ -84,7 +104,7 @@ public:
   }
 
   // searches a specific item from the tree
-  Node<T>* search(T item) noexcept
+  Node<T>* search(T item)
   {
     // Traverse the tree until a null child is found
     auto tempNode = root;
@@ -109,6 +129,8 @@ public:
     }
 
     std::cout << "The item with the value of: " << item << " could not be found" << std::endl;
+
+    throw NodeNotFoundException("The request item could not be foudn");
   }
 
   void remove(T item) noexcept
@@ -136,5 +158,9 @@ int main()
 
   std::cout << "Created tree with 5 nodes" << std::endl;
   tree->display();
+
+  std::cout << "Searching for node with value 8" << std::endl;
+  std::cout << "Found node with value: " << tree->search(8)->getValue() << std::endl; //TODO should be in try catch
+  
   return 0;
 }
