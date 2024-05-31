@@ -3,6 +3,8 @@
 #include <ostream>
 #include <string>
 
+//TODO comment out traverse methods
+
 // Exception for when a specified node could not be found
 class NodeNotFoundException : std::exception
 {
@@ -34,6 +36,8 @@ public: // both pointers are publac for faster development
     :value(item)
   {}
 
+  ~Node() { delete value; }
+
   //Getter for value
   T getValue() const noexcept { return value; }
   void setValue(T item) noexcept { value = item; }
@@ -51,6 +55,8 @@ public:
   Tree() noexcept
     :root(nullptr)
   {}
+
+  ~Tree() { delete[] root; }
 
   // Method to insert a new node into the tree
   void insert(T item) noexcept //TODO does not work!
