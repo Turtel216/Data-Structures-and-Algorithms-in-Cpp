@@ -45,16 +45,6 @@ class Tree
 private:
   Node<T>* root;
 
-  void traverseRecursively(Node<T>* node)
-  {
-    if (node != nullptr)
-    {
-      traverseRecursively(node->lChild);
-      std::cout << " " << node->getValue() << "\n";
-      traverseRecursively(node->rChild);
-    }
-
-  }
 
 public:
 
@@ -143,7 +133,18 @@ public:
   {
     auto tempNode = root;
     // calling the recursive method
-    traverseRecursively(tempNode);
+    inorder(tempNode);
+  }
+
+  void inorder(Node<T>* node)
+  {
+    if (node != nullptr)
+    {
+      inorder(node->lChild);
+      std::cout << " " << node->getValue() << "\n";
+      inorder(node->rChild);
+    }
+
   }
 };
 
