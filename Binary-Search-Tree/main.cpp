@@ -128,23 +128,74 @@ public:
     //TODO
   }
 
-  // Displays the contents of the tree
-  void display() noexcept
+  void inorder()
   {
-    auto tempNode = root;
-    // calling the recursive method
-    inorder(tempNode);
+    Node<T>* node = root;
+
+    if (node == nullptr)
+      return;
+
+    inorder(node->lChild);
+    std::cout << " " << node->getValue() << "\n";
+    inorder(node->rChild);
   }
 
   void inorder(Node<T>* node)
   {
-    if (node != nullptr)
-    {
-      inorder(node->lChild);
-      std::cout << " " << node->getValue() << "\n";
-      inorder(node->rChild);
-    }
+    if (node == nullptr)
+      return;
 
+    inorder(node->lChild);
+    std::cout << " " << node->getValue() << "\n";
+    inorder(node->rChild);
+  }
+
+  void preorder()
+  {
+    Node<T>* node = root;
+
+    if (node == nullptr)
+      return;
+
+    std::cout << " " << node->getValue() << "\n";
+
+    preorder(node->lChild);
+    preorder(node->rChild);
+  }
+
+  void preorder(Node<T>* node)
+  {
+    if (node == nullptr)
+      return;
+
+    std::cout << " " << node->getValue() << "\n";
+
+    preorder(node->lChild);
+    preorder(node->rChild);
+  }
+
+  void postorder()
+  {
+    Node<T>* node = root;
+
+    if (node == nullptr)
+      return;
+
+    std::cout << " " << node->getValue() << "\n";
+
+    postorder(node->lChild);
+    postorder(node->rChild);
+  }
+
+  void postorder(Node<T>* node)
+  {
+    if (node == nullptr)
+      return;
+
+    std::cout << " " << node->getValue() << "\n";
+
+    postorder(node->lChild);
+    postorder(node->rChild);
   }
 };
 
@@ -157,8 +208,14 @@ int main()
   tree->insert(3);
   tree->insert(4);
 
-  std::cout << "Created tree with 5 nodes" << std::endl;
-  tree->display();
+  std::cout << "Created tree with 5 nodes" << "\n" << "Displaying BST inorder" << std::endl;
+  tree->inorder();
+  
+  std::cout << "Displaying BST preorder" << std::endl;
+  tree->preorder();
+
+  std::cout << "Displaying BST postorder" << std::endl;
+  tree->postorder();
 
   std::cout << "Searching for node with value 8" << std::endl;
   std::cout << "Found node with value: " << tree->search(8)->getValue() << std::endl; //TODO should be in try catch
