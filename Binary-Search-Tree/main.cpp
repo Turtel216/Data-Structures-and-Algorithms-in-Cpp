@@ -159,7 +159,23 @@ public:
     // else delete the node with both children and replace it with the inorder successor
     else 
     {
-      //TODO
+      Node<T>* succParent = node;
+      Node<T>* succ = node->rChild;
+      while(succ->lChild != nullptr)
+      {
+        succParent = succ;
+        succ = succ->lChild;
+      }
+
+      node->setValue(succ->getValue());
+
+      if (succParent->lChild == succ)
+        succParent->lChild = succ->rChild;
+      else 
+        succParent->rChild = succ->rChild;
+
+      delete succ;
+      delete node;
     }
   }
 
