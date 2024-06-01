@@ -36,8 +36,6 @@ public: // both pointers are publac for faster development
     :value(item)
   {}
 
-  ~Node() { delete value; }
-
   //Getter for value
   T getValue() const noexcept { return value; }
   void setValue(T item) noexcept { value = item; }
@@ -129,12 +127,13 @@ public:
     throw NodeNotFoundException("The request item could not be foudn");
   }
 
+  // DOES NOT WORK!!!
   void remove(T item) noexcept
   {
     // search for the node 
     auto node = search(item);
 
-    // If the node is a lead node, delete the node
+    // If the node is a leaf node, delete the node
     if (node->lChild == nullptr && node->rChild == nullptr)
     {
       delete node;
@@ -253,13 +252,15 @@ public:
 int main()
 {
   Tree<int>* tree = new Tree<int>();
-  tree->insert(5);
-  tree->insert(2);
-  tree->insert(8);
-  tree->insert(3);
-  tree->insert(4);
+  tree->insert(50);
+  tree->insert(30);
+  tree->insert(20);
+  tree->insert(40);
+  tree->insert(70);
+  tree->insert(60);
+  tree->insert(80);
 
-  std::cout << "Created tree with 5 nodes" << "\n" << "Displaying BST inorder" << std::endl;
+  std::cout << "Created tree with 7 nodes" << "\n" << "Displaying BST inorder" << std::endl;
   tree->inorder();
   
   std::cout << "Displaying BST preorder" << std::endl;
@@ -268,8 +269,12 @@ int main()
   std::cout << "Displaying BST postorder" << std::endl;
   tree->postorder();
 
-  std::cout << "Searching for node with value 8" << std::endl;
-  std::cout << "Found node with value: " << tree->search(8)->getValue() << std::endl; //TODO should be in try catch
+  std::cout << "Searching for node with value 80" << std::endl;
+  std::cout << "Found node with value: " << tree->search(80)->getValue() << std::endl; //TODO should be in try catch
+  
+  std::cout << "Deleting node with value 20" << std::endl;
+  tree->remove(20);
+  tree->inorder();
   
   return 0;
 }
