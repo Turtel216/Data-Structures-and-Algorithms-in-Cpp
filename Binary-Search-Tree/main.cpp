@@ -49,6 +49,7 @@ class Tree
 private:
   Node<T>* root;
 
+  // helper method to delete the tree recursively
   void deleteTree(Node<T>* node)
   {
     if (node) {
@@ -58,6 +59,28 @@ private:
     }
   }
 
+  // helper method to find the parent of given node
+  Node<T>* searchParent(Node<T>* node, T item) 
+  {
+    if (node == nullptr || node->getValue() == item) 
+    {
+      return nullptr; // Root node or not found
+    }
+
+    if ((node->lChild != nullptr && node->lChild->getValue() == item) ||
+        (node->rChild != nullptr && node->rChild->getValue() == item)) 
+    {
+      return node; // Found parent node
+    }
+
+    if (item < node->getValue()) 
+    {
+      return searchParent(node->lChild, item); // Search in left subtree
+    } else 
+    {
+      return searchParent(node->rChild, item); // Search in right subtree
+    }
+  }
 
 public:
 
@@ -67,6 +90,7 @@ public:
 
   ~Tree() 
   {
+    // calling helper method to delete tree
     deleteTree(root);
   }
 
@@ -144,50 +168,60 @@ public:
   // DOES NOT WORK!!!
   void remove(T item) noexcept
   {
-    // search for the node 
-    auto node = search(item);
-
-    // If the node is a leaf node, delete the node
-    if (node->lChild == nullptr && node->rChild == nullptr)
-    {
-      delete node;
-      return;
-    }
-    // If the node has a single left child, copy the child and delete the node
-    else if (node->rChild == nullptr && node->lChild != nullptr)
-    {
-      auto deleteme = node;
-      node = node->lChild;
-      delete node;
-      return;
-    }
-    // If the node has a single right child, copy the child and delete the node
-    else if (node->lChild == nullptr && node->rChild != nullptr)
-    {
-      auto deleteme = node;
-      node = node->rChild;
-      delete node;
-      return;
-    }
-    // else delete the node with both children and replace it with the inorder successor
-    else 
-    {
-      Node<T>* succParent = node;
-      Node<T>* succ = node->rChild;
-      while(succ->lChild != nullptr)
+    try {
+      // search for the node 
+      auto node = search(item);
+      // If the node is a leaf node, delete the node
+      if (node->lChild == nullptr && node->rChild == nullptr)
       {
-        succParent = succ;
-        succ = succ->lChild;
+        delete node;
+        return;
       }
-
-      node->setValue(succ->getValue());
-
-      if (succParent->lChild == succ)
-        succParent->lChild = succ->rChild;
+      // If the node has a single left child, copy the child and delete the node
+      else if (node->rChild == nullptr && node->lChild != nullptr)
+      {
+        auto deleteme = node;
+        node = node->lChild;
+        delete node;
+        return;
+      }
+      // If the node has a single right child, copy the child and delete the node
+      else if (node->lChild == nullptr && node->rChild != nullptr)
+      {
+        auto deleteme = node;
+        node = node->rChild;
+        delete node;
+        return;
+      }
+      // else delete the node with both children and replace it with the inorder successor
       else 
-        succParent->rChild = succ->rChild;
+      {
+        Node<T>* succParent = searchParent(node, node->getValue());
+        Node<T>* succ = node->rChild;
+        while(succ->lChild != nullptr)
+        {
+          succParent = succ;
+          succ = succ->lChild;
+        }
 
-      delete succ;
+        node->setValue(succ->getValue());
+
+        if (succParent->lChild == succ)
+          succParent->lChild = succ->rChild;
+        else 
+          succParent->rChild = succ->rChild;
+
+        std::cout << "Value of the deleted node is: " << node->getValue()
+          << "\n The value of the succ is: " << succ->getValue()
+          << "\n The Value of the succParent is: " << succParent->getValue()
+          << std::endl;
+
+        delete node;
+      }
+    } catch(NodeNotFoundException exception) 
+    {
+      exception.what();
+      return;
     }
   }
 
