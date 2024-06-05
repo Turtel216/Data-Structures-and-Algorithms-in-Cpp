@@ -249,8 +249,15 @@ public:
   // for easier use by the user
   void inorder()
   {
+    Node<T>* node = root;
+
+    if (node == nullptr)
+    {
+      std::cout<< "The tree is empty, cant inorder traverse it" << std::endl;
+      return;
+    }
     // call the recursive traverse method and pass the root
-    inorder(this->root);
+    inorder(node);
   }
 
   // overloaded recursive inorder traversal method
@@ -272,7 +279,10 @@ public:
     Node<T>* node = root;
 
     if (node == nullptr)
+    {
+      std::cout<< "The tree is empty, cant preorder traverse it" << std::endl;
       return;
+    }
 
     std::cout << " " << node->getValue() << "\n";
 
@@ -296,7 +306,10 @@ public:
     Node<T>* node = root;
 
     if (node == nullptr)
+    {
+      std::cout<< "The tree is empty, cant postorder traverse it" << std::endl;
       return;
+    }
 
     postorder(node->lChild);
     postorder(node->rChild);
