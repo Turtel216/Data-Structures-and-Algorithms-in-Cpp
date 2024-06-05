@@ -188,7 +188,7 @@ public:
         << std::endl;
 
       // If the node is a leaf node, delete the node
-      if (node->lChild == nullptr && node->rChild == nullptr)
+      if (node->lChild == nullptr && node->rChild == nullptr) // this one works
       {
         if (parent->lChild == node)
         {
@@ -204,7 +204,7 @@ public:
         }
       }
       // If the node has a single left child, copy the child and delete the node
-      else if (node->rChild == nullptr && node->lChild != nullptr)
+      else if (node->rChild == nullptr && node->lChild != nullptr) //TODO test this one
       {
         auto deleteme = node;
         node = node->lChild;
@@ -212,7 +212,7 @@ public:
         return;
       }
       // If the node has a single right child, copy the child and delete the node
-      else if (node->lChild == nullptr && node->rChild != nullptr)
+      else if (node->lChild == nullptr && node->rChild != nullptr) //TODO test this one
       {
         auto deleteme = node;
         node = node->rChild;
@@ -220,9 +220,11 @@ public:
         return;
       }
       // else delete the node with both children and replace it with the inorder successor
-      else 
+      else //TODO test this one
       {
-        Node<T>* succParent = parent;        Node<T>* succ = node->rChild;
+        Node<T>* succParent = parent;        
+        Node<T>* succ = node->rChild;
+
         while(succ->lChild != nullptr)
         {
           succParent = succ;
@@ -245,7 +247,7 @@ public:
       }
     } catch(NodeNotFoundException exception) 
     {
-      exception.what();
+      std::cout << exception.what() << std::endl;
       return;
     }
   }
