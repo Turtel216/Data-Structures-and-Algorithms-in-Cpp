@@ -3,54 +3,52 @@
 #include <ostream>
 #include <string>
 
-//TODO comment out traverse methods
+  //TODO comment out traverse methods
 
-// Exception for when a specified node could not be found
-class NodeNotFoundException : std::exception
-{
-private:
-  std::string message;
-
-public:
-  NodeNotFoundException(const char* msg) noexcept
-    : message(msg)
-  {}
-
-  const char* what() const throw()
+  // Exception for when a specified node could not be found
+  class NodeNotFoundException : std::exception
   {
-    return message.c_str();
-  }
-};
+  private:
+    std::string message;
 
-template<typename T>
-class Node 
-{
-private:
-  T value;
+  public:
+    NodeNotFoundException(const char* msg) noexcept
+      : message(msg)
+    {}
 
-public: // both pointers are publac for faster development
-  Node* lChild; // pointer to the left child
-  Node* rChild; // pointer to he right child
+    const char* what() const throw()
+    {
+      return message.c_str();
+    }
+  };
 
-  Node(T item) noexcept
-    :value(item)
-  {}
+  template<typename T>
+  class Node 
+  {
+  private:
+    T value;
 
-  ~Node() noexcept {}
+  public: // both pointers are publac for faster development
+    Node* lChild; // pointer to the left child
+    Node* rChild; // pointer to he right child
 
-  //Getter for value
-  T getValue() const noexcept { return value; }
-  void setValue(T item) noexcept { value = item; }
-};
+    Node(T item) noexcept
+      :value(item)
+    {}
 
-template<typename T>
-class Tree
-{
+    //Getter for value
+    T getValue() const noexcept { return value; }
+    void setValue(T item) noexcept { value = item; }
+  };
+
+  template<typename T>
+  class Tree
+  {
 private:
   Node<T>* root;
 
   // helper method to delete the tree recursively
-  void deleteTree(Node<T>* node)
+  void deleteTree(Node<T>* node) noexcept
   {
     if (node) {
       deleteTree(node->lChild);
@@ -59,28 +57,35 @@ private:
     }
   }
 
-  //TODO this one is broken!!!
   // helper method to find the parent of given node
-  Node<T>* searchParent(Node<T>* node, T item) 
+  Node<T>* searchParent(T item) const
   {
-    if (node == nullptr || node->getValue() == item) 
+    // iterate over the tree
+    auto tempNode = root;
+    while(tempNode != nullptr)
     {
-      return root; // Root node or not found
+      // if one of the node's children is the target children, return the node 
+      if ((tempNode->lChild != nullptr && tempNode->lChild->getValue() == item) ||
+          (tempNode->rChild != nullptr && tempNode->rChild->getValue() == item)) 
+      {
+        return tempNode; // Found parent node
+      }
+
+      // if the item is <= the childs value, take the left path
+      else if(tempNode->getValue() < item)
+      {
+        tempNode = tempNode->lChild;
+        continue;
+      }
+      // if the item is > than the childs value, take the right path
+      else
+      {
+        tempNode = tempNode->rChild;
+      }
     }
 
-    if ((node->lChild != nullptr && node->lChild->getValue() == item) ||
-        (node->rChild != nullptr && node->rChild->getValue() == item)) 
-    {
-      return node; // Found parent node
-    }
-
-    if (item < node->getValue()) 
-    {
-      return searchParent(node->lChild, item); // Search in left subtree
-    } else 
-    {
-      return searchParent(node->rChild, item); // Search in right subtree
-    }
+    std::cout << "The parent of the item with the value of: " << item << " could not be found" << std::endl;
+    throw NodeNotFoundException("The request item could not be foudn");
   }
 
 public:
@@ -173,13 +178,13 @@ public:
       // search for the node 
       auto node = search(item); // throws exception if node is not found!!!
       
-      auto parent = searchParent(root, node->getValue()); // throws exception if node is not found!!!
-
+      auto parent = searchParent(node->getValue()); // throws exception if node is not found!!!
       
       std::cout << "\nThe node that will be delted has the value of: " << node->getValue()
         << "\n It has a lChild == nullptr is: " << (node->lChild == nullptr)
         << "\n It has a rChild == nullptr is: " << (node->rChild == nullptr)
         << "\n and the parent has a value of: " << parent->getValue()
+        << "\n\n The value of the parent's left child is: " << parent->lChild->getValue()
         << std::endl;
 
       // If the node is a leaf node, delete the node
