@@ -59,12 +59,13 @@ private:
     }
   }
 
+  //TODO this one is broken!!!
   // helper method to find the parent of given node
   Node<T>* searchParent(Node<T>* node, T item) 
   {
     if (node == nullptr || node->getValue() == item) 
     {
-      return nullptr; // Root node or not found
+      return root; // Root node or not found
     }
 
     if ((node->lChild != nullptr && node->lChild->getValue() == item) ||
@@ -170,19 +171,39 @@ public:
   {
     try {
       // search for the node 
-      auto node = search(item);
+      auto node = search(item); // throws exception if node is not found!!!
+      
+      auto parent = searchParent(root, node->getValue()); // throws exception if node is not found!!!
+
+      
+      std::cout << "\nThe node that will be delted has the value of: " << node->getValue()
+        << "\n It has a lChild == nullptr is: " << (node->lChild == nullptr)
+        << "\n It has a rChild == nullptr is: " << (node->rChild == nullptr)
+        << "\n and the parent has a value of: " << parent->getValue()
+        << std::endl;
+
       // If the node is a leaf node, delete the node
       if (node->lChild == nullptr && node->rChild == nullptr)
       {
-        delete node;
-        return;
+        if (parent->lChild == node)
+        {
+          parent->lChild = nullptr;
+          delete node;
+          return;
+        }
+        else 
+        {
+          parent->rChild = nullptr;
+          delete node;
+          return;
+        }
       }
       // If the node has a single left child, copy the child and delete the node
       else if (node->rChild == nullptr && node->lChild != nullptr)
       {
         auto deleteme = node;
         node = node->lChild;
-        delete node;
+        delete deleteme;
         return;
       }
       // If the node has a single right child, copy the child and delete the node
@@ -190,14 +211,13 @@ public:
       {
         auto deleteme = node;
         node = node->rChild;
-        delete node;
+        delete deleteme;
         return;
       }
       // else delete the node with both children and replace it with the inorder successor
       else 
       {
-        Node<T>* succParent = searchParent(node, node->getValue());
-        Node<T>* succ = node->rChild;
+        Node<T>* succParent = parent;        Node<T>* succ = node->rChild;
         while(succ->lChild != nullptr)
         {
           succParent = succ;
