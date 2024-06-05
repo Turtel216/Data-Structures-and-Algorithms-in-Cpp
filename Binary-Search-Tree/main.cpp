@@ -36,6 +36,8 @@ public: // both pointers are publac for faster development
     :value(item)
   {}
 
+  ~Node() noexcept {}
+
   //Getter for value
   T getValue() const noexcept { return value; }
   void setValue(T item) noexcept { value = item; }
@@ -47,6 +49,15 @@ class Tree
 private:
   Node<T>* root;
 
+  void deleteTree(Node<T>* node)
+  {
+    if (node) {
+      deleteTree(node->lChild);
+      deleteTree(node->rChild);
+      delete node;
+    }
+  }
+
 
 public:
 
@@ -54,7 +65,10 @@ public:
     :root(nullptr)
   {}
 
-  ~Tree() { delete[] root; }
+  ~Tree() 
+  {
+    deleteTree(root);
+  }
 
   // Method to insert a new node into the tree
   void insert(T item) noexcept //TODO does not work!
@@ -140,7 +154,7 @@ public:
       return;
     }
     // If the node has a single left child, copy the child and delete the node
-    else if (node->lChild == nullptr)
+    else if (node->rChild == nullptr && node->lChild != nullptr)
     {
       auto deleteme = node;
       node = node->lChild;
@@ -148,7 +162,7 @@ public:
       return;
     }
     // If the node has a single right child, copy the child and delete the node
-    else if (node->rChild == nullptr)
+    else if (node->lChild == nullptr && node->rChild != nullptr)
     {
       auto deleteme = node;
       node = node->rChild;
@@ -174,29 +188,28 @@ public:
         succParent->rChild = succ->rChild;
 
       delete succ;
-      delete node;
     }
   }
 
+  // overloaded inorder traversal method with no args
+  // for easier use by the user
   void inorder()
   {
-    Node<T>* node = root;
-
-    if (node == nullptr)
-      return;
-
-    inorder(node->lChild);
-    std::cout << " " << node->getValue() << "\n";
-    inorder(node->rChild);
+    // call the recursive traverse method and pass the root
+    inorder(this->root);
   }
 
+  // overloaded recursive inorder traversal method
   void inorder(Node<T>* node)
   {
+    // if the current is null, return
     if (node == nullptr)
       return;
 
+    // continue recursively with left child
     inorder(node->lChild);
     std::cout << " " << node->getValue() << "\n";
+    // continue recursively with right child
     inorder(node->rChild);
   }
 
