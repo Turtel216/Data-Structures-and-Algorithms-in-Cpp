@@ -2,6 +2,7 @@
 #include <iostream>
 #include <ostream>
 #include <string>
+#include <tuple>
 
   //TODO comment out traverse methods
 
@@ -57,18 +58,23 @@ private:
     }
   }
 
-  // helper method to find the parent of given node
-  Node<T>* searchParent(T item) const
+  // helper method to find the parent of given node and the node it's self
+  std::tuple<Node<T>*, Node<T>*> searchChildAndParent(T item) const
   {
     // iterate over the tree
     auto tempNode = root;
     while(tempNode != nullptr)
     {
-      // if one of the node's children is the target children, return the node 
-      if ((tempNode->lChild != nullptr && tempNode->lChild->getValue() == item) ||
-          (tempNode->rChild != nullptr && tempNode->rChild->getValue() == item)) 
+      // if the node's left child is the target child, return the node and the left child 
+      if ((tempNode->lChild != nullptr && tempNode->lChild->getValue() == item))
       {
-        return tempNode; // Found parent node
+        return std::make_tuple(tempNode, tempNode->lChild);
+      }
+      
+      // if the node's right child is the target child, return the node and the right child 
+      if (tempNode->rChild != nullptr && tempNode->rChild->getValue() == item)
+      {
+        return std::make_tuple(tempNode, tempNode->rChild);
       }
 
       // if the item is <= the childs value, take the left path
@@ -175,10 +181,9 @@ public:
   void remove(T item) noexcept
   {
     try {
-      // search for the node 
-      auto node = search(item); // throws exception if node is not found!!!
-      
-      auto parent = searchParent(node->getValue()); // throws exception if node is not found!!!
+      // search for the node and its parent
+      Node<T> *node, *parent;
+      std::tie(parent, node) = searchChildAndParent(item);
       
       // If the node is a leaf node, delete the node
       if (node->lChild == nullptr && node->rChild == nullptr) // this one works
@@ -375,28 +380,30 @@ int main()
       /   \    /  \
     20    40  60  80 */
 
-  std::cout << "Created tree with 7 nodes" << "\n" << "Displaying BST inorder" << std::endl;
+  std::cout << "\nCreated tree with 7 nodes" << "\n" << "Displaying BST inorder" << std::endl;
   tree->inorder();
   
-  std::cout << "Displaying BST preorder" << std::endl;
+  std::cout << "\nDisplaying BST preorder" << std::endl;
   tree->preorder();
 
-  std::cout << "Displaying BST postorder" << std::endl;
+  std::cout << "\nDisplaying BST postorder" << std::endl;
   tree->postorder();
 
-  std::cout << "Searching for node with value 80" << std::endl;
+  std::cout << "\nSearching for node with value 80" << std::endl;
   std::cout << "Found node with value: " << tree->search(80)->getValue() << std::endl; //TODO should be in try catch
   
-  std::cout << "Deleting node with value 70(remove case: 2 children)" << std::endl;
+  std::cout << "\nDeleting node with value 70(remove case: 2 children)" << std::endl;
   tree->remove(70);
   tree->inorder();
 
-  std::cout << "Deleting node with value 60(remove case: 1 child)" << std::endl;
+  std::cout << "\nDeleting node with value 60(remove case: 1 child)" << std::endl;
   tree->remove(60);
   tree->inorder();
   
-  std::cout << "Deleting node with value 20(remove case: 0 children)" << std::endl;
+  std::cout << "\nDeleting node with value 20(remove case: 0 children)" << std::endl;
   tree->remove(20);
   tree->inorder();
+
+  delete tree;
   return 0;
 }
