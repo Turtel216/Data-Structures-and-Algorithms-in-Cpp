@@ -1,58 +1,33 @@
+#include <cstddef>
 #include <iostream>
 
 template<typename T>
-class Node 
+class MinHeap
 {
 private:
-  T item;
-
-public: // both pointers are public for faster development
-  Node<T>* lChild; // pointer to the left child
-  Node<T>* rChild; // pointer to the right child
-
-  // Getter for item
-  T getItem() const noexcept { return item; }
-  // Setter for item 
-  void setItem(T &item) noexcept { this->item = item; }
-
-  Node(T value) noexcept
-    :item(value)
-  {}
-
-  ~Node() noexcept
-  {}
-};
-
-template<typename T>
-class Heap
-{
-private:
-  Node<T>* root;
-
-  // helper method to delete the heap recursively
-  void deleteHeap(Node<T>* node) noexcept
-  {
-    if(node)
-    {
-      deleteHeap(node->lChild);
-      deleteHeap(node->rChild);
-      delete node;
-    }
-  }
+  T *array;
+  size_t capacity;
+  size_t size;
 
 public:
 
-  Heap() noexcept
-    :root(nullptr)
-  {}
-
-  ~Heap() noexcept
+  MinHeap(T capacity) noexcept
   {
-    // calling helper method to delete the heap
-    deleteHeap(root);
+    size = 0;
+    this->capacity = capacity;
+    array = new T[capacity];
   }
 
+  size_t getParent(size_t index) const noexcept { return (index - 1) / 2; }
+  size_t getLeft(size_t index) const noexcept { return (2 * index + 1); }
+  size_t getRight(size_t index) const noexcept { return (2 * index + 2); }
+  T extractMin() noexcept;
+  void decreaseKey(size_t index, T value) noexcept;
+  T getMin() const noexcept { return array[0]; }
+  void deleteKey(size_t index);
+  void insert(T value) noexcept;
 };
+
 int main()
 {
   return 0;
