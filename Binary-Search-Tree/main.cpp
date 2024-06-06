@@ -75,7 +75,7 @@ public: // both pointers are public for faster development
 
   //Getter for value
   T getValue() const noexcept { return value; }
-  
+  // Setter for value
   void setValue(T item) noexcept { value = item; }
 };
 
