@@ -1,3 +1,4 @@
+#include <climits>
 #include <cstddef>
 #include <iostream>
 
@@ -29,9 +30,43 @@ public:
 
   void MinHeapify(size_t index);
 
-  T extractMin() noexcept;
+  T extractMin() noexcept
+  {
+    if (size <= 0) // case the heap is empty
+      return INT_MAX;
+    if (size == 1) // case the heap has a single entry
+    {
+      size--;
+      return array[0];
+    }
 
-  void decreaseKey(size_t index, T value) noexcept;
+    // Return the minimum value and remove it from the heap
+    T root = array[0];
+    array[0] =  array[size - 1];
+    MinHeapify(0);
+
+    return root;
+  }
+
+  // Decrease value of node at index to a specific value
+  void decreaseKey(size_t index, T newValue) noexcept 
+  {
+    // if the given value is <= the current value notify the user and return
+    if (newValue >= array[index])
+    {
+      std::cout << "The given value is greater or equal to teh current value. The given value must be smaller than the current value"
+                << std::endl;
+      return;
+    }
+    array[index] = newValue;
+    while(index != 0 && array[this->getParent(index)] > array[index])
+    {
+      // swap the two values
+      array[index] = array[getParent(index)];
+      array[getParent(index)] = newValue;
+      index = getParent(index);
+    }  
+  }
 
   // delete a node of given index
   void deleteKey(size_t index);
