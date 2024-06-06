@@ -148,7 +148,7 @@ public:
   }
 
   // searches a specific item from the tree
-  Node<T>* search(T item)
+  Node<T>* search(T item) const
   {
     // Traverse the tree until a null child is found
     auto tempNode = root;
@@ -280,10 +280,11 @@ public:
 
   // overloaded inorder traversal method with no args
   // for easier use by the user
-  void inorder()
+  void inorder() const noexcept
   {
     Node<T>* node = root;
 
+    // if the list is empty, notify the user
     if (node == nullptr)
     {
       std::cout<< "The tree is empty, cant inorder traverse it" << std::endl;
@@ -294,7 +295,8 @@ public:
   }
 
   // overloaded recursive inorder traversal method
-  void inorder(Node<T>* node)
+  // left sub-tree -> root -> right sub-tree
+  void inorder(Node<T>* node) const noexcept
   {
     // if the current is null, return
     if (node == nullptr)
@@ -307,57 +309,62 @@ public:
     inorder(node->rChild);
   }
 
-  void preorder()
+  // overloaded preorder traversal method with no args
+  // for easier use by the user
+  void preorder() const noexcept
   {
-    Node<T>* node = root;
-
-    if (node == nullptr)
+    // if the list is empty, notify the user
+    if (root == nullptr)
     {
       std::cout<< "The tree is empty, cant preorder traverse it" << std::endl;
       return;
     }
 
-    std::cout << " " << node->getValue() << "\n";
-
-    preorder(node->lChild);
-    preorder(node->rChild);
+    // call the recursive traverse method and pass the root
+    preorder(root);
   }
 
-  void preorder(Node<T>* node)
+  // overloaded recursive preorder traversal method
+  // root -> left sub-tree -> right sub-tree
+  void preorder(Node<T>* node) const noexcept
   {
+    // if a leaf is reached, return
     if (node == nullptr)
       return;
 
     std::cout << " " << node->getValue() << "\n";
 
-    preorder(node->lChild);
-    preorder(node->rChild);
+    preorder(node->lChild); // traverse the left sub-tree
+    preorder(node->rChild); // traverse the right sub-tree
   }
 
-  void postorder()
+  // overloaded postorder traversal method with no args
+  // for easier use by the user
+  void postorder() const noexcept
   {
-    Node<T>* node = root;
 
-    if (node == nullptr)
+    // if the list is empty, notify the user
+    if (root == nullptr)
     {
       std::cout<< "The tree is empty, cant postorder traverse it" << std::endl;
       return;
     }
 
-    postorder(node->lChild);
-    postorder(node->rChild);
-
-    std::cout << " " << node->getValue() << "\n";
+    // call the recursive traverse method and pass the root
+    postorder(root);
   }
 
-  void postorder(Node<T>* node)
+  // overloaded recursive postorder traversal method
+  // left sub-tree -> right sub-tree -> root
+  void postorder(Node<T>* node) const noexcept
   {
+    // if a leaf ist reached, return
     if (node == nullptr)
       return;
 
-    postorder(node->lChild);
-    postorder(node->rChild);
-    
+    postorder(node->lChild); // traverse the left sub-tree
+    postorder(node->rChild); // traverse the left sub-tree
+
     std::cout << " " << node->getValue() << "\n";
   }
 };
