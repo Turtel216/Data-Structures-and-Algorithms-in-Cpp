@@ -180,21 +180,17 @@ public:
       
       auto parent = searchParent(node->getValue()); // throws exception if node is not found!!!
       
-      std::cout << "\nThe node that will be delted has the value of: " << node->getValue()
-        << "\n It has a lChild == nullptr is: " << (node->lChild == nullptr)
-        << "\n It has a rChild == nullptr is: " << (node->rChild == nullptr)
-        << "\n and the parent has a value of: " << parent->getValue()
-        << std::endl;
-
       // If the node is a leaf node, delete the node
       if (node->lChild == nullptr && node->rChild == nullptr) // this one works
       {
+        // if the node is the left child of the parent delete
         if (parent->lChild == node)
         {
           parent->lChild = nullptr;
           delete node;
           return;
         }
+        // if the node is the right child of the parent delete
         else 
         {
           parent->rChild = nullptr;
@@ -203,27 +199,52 @@ public:
         }
       }
       // If the node has a single left child, copy the child and delete the node
-      else if (node->rChild == nullptr && node->lChild != nullptr) //TODO test this one
+      else if (node->rChild == nullptr && node->lChild != nullptr)
       {
-        std::cout << "Remove case rChild == nullptr and lChild !=nullptr" << std::endl;
+        // if the node is the left child of the parent, delete it and replace it
+        if (parent->lChild == node)
+        {
         auto deleteme = node;
         node = node->lChild;
+        parent->lChild = node;
         delete deleteme;
         return;
+        }
+        // if the node is the right child of the parent, delete it and replace it
+        else
+        {
+        auto deleteme = node;
+        node = node->lChild;
+        parent->rChild = node;
+        delete deleteme;
+        return;
+        }
       }
       // If the node has a single right child, copy the child and delete the node
-      else if (node->lChild == nullptr && node->rChild != nullptr) //TODO test this one
+      else if (node->lChild == nullptr && node->rChild != nullptr)
       {
-        std::cout << "Remove case lChild == nullptr and rChild !=nullptr" << std::endl;
+        // if the node is the left child of the parent, delete it and replace it
+        if (parent->lChild == node)
+        {
         auto deleteme = node;
         node = node->rChild;
+        parent->lChild = node;
         delete deleteme;
         return;
+        }
+        else
+        {
+        // if the node is the right child of the parent, delete it and replace it
+        auto deleteme = node;
+        node = node->rChild;
+        parent->rChild = node;
+        delete deleteme;
+        return;
+        }
       }
       // else delete the node with both children and replace it with the inorder successor
       else
       {
-        std::cout << "Remove case node with two children" << std::endl;
         auto succParent = node;
         auto succ = node->rChild;
 
@@ -347,6 +368,13 @@ int main()
   tree->insert(60);
   tree->insert(80);
 
+  /* The tree has the following structure
+            50
+          /    \
+        30      70
+      /   \    /  \
+    20    40  60  80 */
+
   std::cout << "Created tree with 7 nodes" << "\n" << "Displaying BST inorder" << std::endl;
   tree->inorder();
   
@@ -359,9 +387,16 @@ int main()
   std::cout << "Searching for node with value 80" << std::endl;
   std::cout << "Found node with value: " << tree->search(80)->getValue() << std::endl; //TODO should be in try catch
   
-  std::cout << "Deleting node with value 20" << std::endl;
+  std::cout << "Deleting node with value 70(remove case: 2 children)" << std::endl;
   tree->remove(70);
   tree->inorder();
+
+  std::cout << "Deleting node with value 60(remove case: 1 child)" << std::endl;
+  tree->remove(60);
+  tree->inorder();
   
+  std::cout << "Deleting node with value 20(remove case: 0 children)" << std::endl;
+  tree->remove(20);
+  tree->inorder();
   return 0;
 }
