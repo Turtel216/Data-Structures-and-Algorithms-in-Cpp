@@ -184,7 +184,6 @@ public:
         << "\n It has a lChild == nullptr is: " << (node->lChild == nullptr)
         << "\n It has a rChild == nullptr is: " << (node->rChild == nullptr)
         << "\n and the parent has a value of: " << parent->getValue()
-        << "\n\n The value of the parent's left child is: " << parent->lChild->getValue()
         << std::endl;
 
       // If the node is a leaf node, delete the node
@@ -206,6 +205,7 @@ public:
       // If the node has a single left child, copy the child and delete the node
       else if (node->rChild == nullptr && node->lChild != nullptr) //TODO test this one
       {
+        std::cout << "Remove case rChild == nullptr and lChild !=nullptr" << std::endl;
         auto deleteme = node;
         node = node->lChild;
         delete deleteme;
@@ -214,36 +214,36 @@ public:
       // If the node has a single right child, copy the child and delete the node
       else if (node->lChild == nullptr && node->rChild != nullptr) //TODO test this one
       {
+        std::cout << "Remove case lChild == nullptr and rChild !=nullptr" << std::endl;
         auto deleteme = node;
         node = node->rChild;
         delete deleteme;
         return;
       }
       // else delete the node with both children and replace it with the inorder successor
-      else //TODO test this one
+      else
       {
-        Node<T>* succParent = parent;        
-        Node<T>* succ = node->rChild;
+        std::cout << "Remove case node with two children" << std::endl;
+        auto succParent = node;
+        auto succ = node->rChild;
 
+        // Find the inorder successor
         while(succ->lChild != nullptr)
         {
           succParent = succ;
           succ = succ->lChild;
         }
 
+        // copy the inorder successor's item to node to be replaced
         node->setValue(succ->getValue());
 
+        // delete the inorder successor
         if (succParent->lChild == succ)
           succParent->lChild = succ->rChild;
         else 
           succParent->rChild = succ->rChild;
 
-        std::cout << "Value of the deleted node is: " << node->getValue()
-          << "\n The value of the succ is: " << succ->getValue()
-          << "\n The Value of the succParent is: " << succParent->getValue()
-          << std::endl;
-
-        delete node;
+        delete succ;
       }
     } catch(NodeNotFoundException exception) 
     {
@@ -360,7 +360,7 @@ int main()
   std::cout << "Found node with value: " << tree->search(80)->getValue() << std::endl; //TODO should be in try catch
   
   std::cout << "Deleting node with value 20" << std::endl;
-  tree->remove(20);
+  tree->remove(70);
   tree->inorder();
   
   return 0;
