@@ -4,7 +4,42 @@
 #include <string>
 #include <tuple>
 
-  //TODO comment out traverse methods
+/*
+This is an implementation of a Binary-Search-Tree(BST) using templates.
+The Tree class has the following methods:
+    - 'insert' which adds a new node to the tree.
+
+    - 'inorder' which traverses the tree inorder:
+          left sub-tree -> root -> right sub-tree
+
+    - 'preorder' which traverses the tree preorder:
+          root -> left sub-tree -> right sub-tree
+
+    - 'postorder' which traverses the tree postorder:
+          left sub-tree -> right sub-tree -> root
+
+    - 'remove' which removes a given item from the tree.
+
+    - 'search' which searches and returns the node that holds a given item.
+    The method throws a NodeNotFoundException exception when no node is found.
+
+    - 'searchParentAndChild' is a private helper method that returns a tuple
+    containing the node that holds a given item and its parent.The method throws
+    a NodeNotFoundException exception when no node is found.
+
+    - 'deleteTree' is a private helper method that deletes the tree recursively.
+
+
+The Node class has getters and setters for the value it holds
+
+   The tree used in the tests has the following structure
+                        50
+                      /    \
+                    30      70
+                  /   \    /  \
+                20    40  60  80 
+
+*/
 
   // Exception for when a specified node could not be found
   class NodeNotFoundException : std::exception
@@ -58,7 +93,7 @@ private:
     }
   }
 
-  // helper method to find the parent of given node and the node it's self
+  // helper method to find the parent of given node and the node it self
   std::tuple<Node<T>*, Node<T>*> searchParentAndChild(T item) const
   {
     // iterate over the tree
@@ -90,8 +125,7 @@ private:
       }
     }
 
-    std::cout << "The parent of the item with the value of: " << item << " could not be found" << std::endl;
-    throw NodeNotFoundException("The request item could not be foudn");
+    throw NodeNotFoundException("The request node or its parent could not be found");
   }
 
 public:
@@ -172,12 +206,10 @@ public:
       }
     }
 
-    std::cout << "The item with the value of: " << item << " could not be found" << std::endl;
-
     throw NodeNotFoundException("The request item could not be foudn");
   }
 
-  // DOES NOT WORK!!!
+  // mehtod to remove node from BST
   void remove(T item) noexcept
   {
     try {
