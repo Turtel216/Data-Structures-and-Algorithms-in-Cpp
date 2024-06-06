@@ -59,7 +59,7 @@ private:
   }
 
   // helper method to find the parent of given node and the node it's self
-  std::tuple<Node<T>*, Node<T>*> searchChildAndParent(T item) const
+  std::tuple<Node<T>*, Node<T>*> searchParentAndChild(T item) const
   {
     // iterate over the tree
     auto tempNode = root;
@@ -183,7 +183,7 @@ public:
     try {
       // search for the node and its parent
       Node<T> *node, *parent;
-      std::tie(parent, node) = searchChildAndParent(item);
+      std::tie(parent, node) = searchParentAndChild(item);
       
       // If the node is a leaf node, delete the node
       if (node->lChild == nullptr && node->rChild == nullptr) // this one works
