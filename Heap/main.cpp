@@ -28,6 +28,8 @@ public:
     array = new T[capacity];
   }
 
+  ~MinHeap() noexcept { delete[] array; }
+
   // get the parent of a given idnex
   size_t getParent(size_t index) const noexcept { return (index - 1) / 2; }
   // get the left child of a  given index
