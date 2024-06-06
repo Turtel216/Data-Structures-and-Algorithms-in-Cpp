@@ -1,6 +1,7 @@
 #include <climits>
 #include <cstddef>
 #include <iostream>
+#include <linux/limits.h>
 
 template<typename T>
 class MinHeap
@@ -9,6 +10,14 @@ private:
   T *array;
   size_t capacity;
   size_t size;
+
+  // helper method to swap to values
+  void swap(T *x, T *y)
+  {
+    T temp = *x;
+    *x = *y;
+    *y = temp;
+  }
 
 public:
 
@@ -28,7 +37,24 @@ public:
   // get the root of the heap
   T getMin() const noexcept { return array[0]; }
 
-  void MinHeapify(size_t index);
+  // Recursive method to heapify a tree
+  void MinHeapify(size_t index) noexcept
+  {
+    auto left = this->getLeft(index);
+    auto right = this->getRight(index);
+    auto smallest = index;
+
+    if(left < size && array[left] < array[smallest])
+      smallest = left;
+    if (right < size && array[right] < array[smallest])
+      smallest = right;
+    if (smallest != index)
+    {
+      // swap the two values
+      swap(&array[index], &array[smallest]);
+      MinHeapify(smallest);
+    }
+  }  
 
   T extractMin() noexcept
   {
