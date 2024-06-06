@@ -58,28 +58,30 @@ The Node class has getters and setters for the value it holds
     }
   };
 
-  template<typename T>
-  class Node 
-  {
-  private:
-    T value;
 
-  public: // both pointers are publac for faster development
-    Node* lChild; // pointer to the left child
-    Node* rChild; // pointer to he right child
+template<typename T>
+class Node 
+{
+private:
+  T value;
 
-    Node(T item) noexcept
-      :value(item)
-    {}
+public: // both pointers are public for faster development
+  Node* lChild; // pointer to the left child
+  Node* rChild; // pointer to he right child
 
-    //Getter for value
-    T getValue() const noexcept { return value; }
-    void setValue(T item) noexcept { value = item; }
-  };
+  Node(T item) noexcept
+    :value(item)
+  {}
 
-  template<typename T>
-  class Tree
-  {
+  //Getter for value
+  T getValue() const noexcept { return value; }
+  
+  void setValue(T item) noexcept { value = item; }
+};
+
+template<typename T>
+class Tree
+{
 private:
   Node<T>* root;
 
