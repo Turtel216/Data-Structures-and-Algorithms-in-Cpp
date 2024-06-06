@@ -95,7 +95,11 @@ public:
   }
 
   // delete a node of given index
-  void deleteKey(size_t index);
+  void deleteAtIndex(size_t index)
+  {
+    decreaseKey(index, INT_MIN);
+    extractMin();
+  }
 
   // insert new value to the heap
   void insert(T value) noexcept 
