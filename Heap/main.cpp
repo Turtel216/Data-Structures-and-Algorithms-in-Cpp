@@ -14,9 +14,9 @@ private:
   // helper method to swap to values
   void swap(T *x, T *y)
   {
-    *x = *x ^ *y;
-    *y = *x ^ *y;
-    *x = *x ^ *y;
+    T temp = *x;
+    *x = *y;
+    *y = temp;
   }
 
 public:
