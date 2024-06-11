@@ -1,6 +1,8 @@
 #include <climits>
 #include <iostream>
 
+//TODO needs to be documented
+
 class MinHeap
 {
 private:
