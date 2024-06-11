@@ -1,5 +1,4 @@
 #include <climits>
-#include <cstddef>
 #include <iostream>
 #include <linux/limits.h>
 
@@ -8,8 +7,8 @@ class MinHeap
 {
 private:
   T *array;
-  size_t capacity;
-  size_t size;
+  int capacity;
+  int size;
 
   // helper method to swap to values
   void swap(T *x, T *y)
@@ -21,7 +20,7 @@ private:
 
 public:
 
-  MinHeap(T capacity) noexcept
+  MinHeap(int capacity) noexcept
   {
     size = 0;
     this->capacity = capacity;
@@ -31,22 +30,22 @@ public:
   ~MinHeap() noexcept { delete[] array; }
 
   // get the parent of a given idnex
-  size_t getParent(size_t index) const noexcept { return (index - 1) / 2; }
+  int getParent(int index) const noexcept { return (index - 1) / 2; }
   // get the left child of a  given index
-  size_t getLeft(size_t index) const noexcept { return (2 * index + 1); }
+  int getLeft(int index) const noexcept { return (2 * index + 1); }
   // get the right child of a given index
-  size_t getRight(size_t index) const noexcept { return (2 * index + 2); }
+  int getRight(int index) const noexcept { return (2 * index + 2); }
   // get the root of the heap
   T getMin() const noexcept { return array[0]; }
 
   // Recursive method to heapify a tree
-  void MinHeapify(size_t index) noexcept
+  void MinHeapify(int index) noexcept
   {
-    auto left = this->getLeft(index);
-    auto right = this->getRight(index);
-    auto smallest = index;
+    int left = this->getLeft(index);
+    int right = this->getRight(index);
+    int smallest = index;
 
-    if(left < size && array[left] < array[smallest])
+    if(left < size && array[left] < array[index])
       smallest = left;
     if (right < size && array[right] < array[smallest])
       smallest = right;
@@ -71,33 +70,33 @@ public:
     // Return the minimum value and remove it from the heap
     T root = array[0];
     array[0] =  array[size - 1];
+    size--;
     MinHeapify(0);
 
     return root;
   }
 
   // Decrease value of node at index to a specific value
-  void decreaseKey(size_t index, T newValue) noexcept 
+  void decreaseKey(int index, T value) noexcept 
   {
     // if the given value is <= the current value notify the user and return
-    if (newValue >= array[index])
+    if (value >= array[index])
     {
-      std::cout << "The given value is greater or equal to teh current value. The given value must be smaller than the current value"
+      std::cout << "The given value is greater or equal to the current value. The given value must be smaller than the current value"
                 << std::endl;
       return;
     }
-    array[index] = newValue;
-    while(index != 0 && array[this->getParent(index)] > array[index])
+    array[index] = value;
+    while(index != 0 && array[getParent(index)] > array[index])
     {
       // swap the two values
-      array[index] = array[getParent(index)];
-      array[getParent(index)] = newValue;
+      swap(&array[index], &array[index]);
       index = getParent(index);
     }  
   }
 
   // delete a node of given index
-  void deleteAtIndex(size_t index)
+  void deleteAtIndex(int index)
   {
     decreaseKey(index, INT_MIN);
     extractMin();
@@ -111,20 +110,20 @@ public:
     {
       std::cout << "Overflow: Could not insert value" << std::endl;
       return;
-    }
+    }//TODO Still needs to be implemented 
+
 
     // increase the heap size 
     size++;
     // insert key at the end 
-    size_t index = size - 1;
+    int index = size - 1;
     array[index] = value;
 
     // balance the heap if its not balanced 
     while (index != 0 && array[getParent(index)] > array[index])
     {
       // swap the the values of parent and child and continue
-      array[index] = array[getParent(index)];
-      array[getParent(index)] = value;
+      swap(&array[index], &array[getParent(index)]);
       index = getParent(index);
     }
   }
@@ -133,5 +132,22 @@ public:
 
 int main()
 {
+  MinHeap<int> *heap = new MinHeap<int>(11);
+  heap->insert(3);
+  heap->insert(2);
+  heap->insert(1);
+  heap->insert(15);
+  heap->insert(5);
+  heap->insert(4);
+  heap->insert(45);
+  
+  std::cout << heap->extractMin() << " ";
+  std::cout << heap->getMin() << " ";
+
+  heap->decreaseKey(2, 1);
+  std::cout << heap->getMin();
+
+  delete heap;
+
   return 0;
 }
