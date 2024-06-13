@@ -1,25 +1,38 @@
 #include <climits>
 #include <iostream>
 
-//TODO needs to be documented
+/*
+This is an implementation of a MinHeap. The heap has the following methods:
+    - 'insert' inserts new item into the tree and balances the heap 
+
+    - 'deleteAtIndex' deletes item at index
+
+    - 'decreaseAtIndex' given an index and a value smaller than the current
+    value at the index, swap the old value with the new
+
+    - 'extractMin' finds the minimum values, returns it and removes it from the heap
+
+    - 'MinHeapify' balances the heap recursively
+*/
 
 class MinHeap
 {
 private:
-  int *array;
-  int capacity;
-  int size;
+  int *array; // Array holding the values
+  int capacity; // The capacity of the heap
+  int size; // The current size of the heap
 
-  // helper method to swap two values
+  // helper method to swap two values using the XOR gate
   void swap(int *x, int *y)
   {
-    int temp = *x;
-    *x = *y;
-    *y = temp;
+    *x = *x ^ *y;
+    *y = *x ^ *y;
+    *x = *x ^ *y;
   }
 
 public:
 
+  // Constructor for creating a heap with a specified capacity and size of 0
   MinHeap(int capacity) noexcept
   {
     size = 0;
@@ -27,6 +40,7 @@ public:
     array = new int[capacity];
   }
 
+  // Default deconstructor
   ~MinHeap() noexcept { delete[] array; }
 
   // get the parent of a given idnex
@@ -57,6 +71,7 @@ public:
     }
   }  
 
+  // Get the minimum value of the heap and remove it 
   int extractMin() noexcept
   {
     if (size <= 0) // case the heap is empty
@@ -77,16 +92,19 @@ public:
   }
 
   // Decrease value of node at index to a specific value
-  void decreaseKey(int index, int value) noexcept 
+  void decreaseAtIndex(int index, int value) noexcept 
   {
-    // if the given value is <= the current value notify the user and return
+    // if the given value is >= the current value notify the user and return
     if (value >= array[index])
     {
       std::cout << "The given value is greater or equal to the current value. The given value must be smaller than the current value"
                 << std::endl;
       return;
     }
+
+    // Set the new value at the given index
     array[index] = value;
+    // Rebalance the heap
     while(index != 0 && array[getParent(index)] > array[index])
     {
       // swap the two values
@@ -98,7 +116,7 @@ public:
   // delete a node of given index
   void deleteAtIndex(int index)
   {
-    decreaseKey(index, INT_MIN);
+    decreaseAtIndex(index, INT_MIN);
     extractMin();
   }
 
@@ -132,6 +150,7 @@ public:
 
 int main()
 {
+  // The expected test result is: 2 4 1
   MinHeap heap(11);
   heap.insert(3);
   heap.insert(2);
@@ -144,7 +163,7 @@ int main()
   std::cout << heap.extractMin() << " ";
   std::cout << heap.getMin() << " ";
 
-  heap.decreaseKey(2, 1);
+  heap.decreaseAtIndex(2, 1);
   std::cout << heap.getMin() << std::endl;
 
   return 0;
