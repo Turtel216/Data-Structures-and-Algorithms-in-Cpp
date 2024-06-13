@@ -10,5 +10,5 @@ A project started for educational purposes, containing implementations of DAs in
  - [Stack](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/Stack)
  - [Queue](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/Queue)
  - [Binary Search Tree](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/Binary-Search-Tree)
- - [Heap](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/blob/main/Heap/main.cpp)
+ - [Heap](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/blob/main/Heap)
  - Graph(currently being worked on)
