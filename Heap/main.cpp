@@ -23,7 +23,7 @@ private:
   int size; // The current size of the heap
 
   // helper method to swap two values using the XOR gate
-  void swap(int *x, int *y)
+  void swap(int *x, int *y) noexcept
   {
     *x = *x ^ *y;
     *y = *x ^ *y;
@@ -114,7 +114,7 @@ public:
   }
 
   // delete a node of given index
-  void deleteAtIndex(int index)
+  void deleteAtIndex(int index) noexcept
   {
     decreaseAtIndex(index, INT_MIN);
     extractMin();
