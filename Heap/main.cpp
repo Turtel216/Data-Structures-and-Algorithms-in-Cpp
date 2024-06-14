@@ -13,6 +13,11 @@ This is an implementation of a MinHeap. The heap has the following methods:
     - 'extractMin' finds the minimum values, returns it and removes it from the heap
 
     - 'MinHeapify' balances the heap recursively
+
+    - 'swap' a helper method to swap 2 values. NOTE the method uses the XOR gate to swap
+    the values which theoreticly uses less memory, but according to various sources on the 
+    internet it is slower when executing on x86 CPUs. It is left in to "show off" and because
+    I enjoy trying out diffrent implementations across these projects
 */
 
 class MinHeap
