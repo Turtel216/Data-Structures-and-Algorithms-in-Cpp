@@ -29,8 +29,8 @@ private:
   T payload;
 
 public:
-  Node* next; // next is set to public, for faster development of this project
-
+  Node* next; // pointer to the next node 
+  
   Node() noexcept
   {
     next = nullptr;
@@ -52,13 +52,13 @@ class LinkedList
 {
 private:
 
-  // split the nodes of given list itno two halves
+  // split the nodes of given list into two halves
   void splitList(Node<T>* source, Node<T>** firstRef, Node<T>** secondRef) noexcept
   {
     Node<T>* slow = source;
     Node<T>* fast = source->next;
 
-    // with each iteration 'fast' advances by 2 notes and 'slow' with one note at a time
+    // with each iteration 'fast' advances by 2 notes and 'slow' by 1
     while(fast != nullptr)
     {
       fast = fast->next;

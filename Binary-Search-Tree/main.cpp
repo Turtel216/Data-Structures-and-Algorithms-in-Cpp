@@ -95,7 +95,7 @@ private:
     }
   }
 
-  // helper method to find the parent of given node and the node it self
+  // helper method to find the parent of given node and the node itself
   std::tuple<Node<T>*, Node<T>*> searchParentAndChild(T item) const
   {
     // iterate over the tree

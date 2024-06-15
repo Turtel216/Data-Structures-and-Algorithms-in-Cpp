@@ -8,6 +8,9 @@ A simple implementation of the selection sort algorithm
 // Method for sorting the integer array
 void selectionSort(std::array<int, 5> &arr) noexcept;
 
+// Helper method to swap two values
+void swap(int &a, int &b);
+
 // Helper method to display the array
 void display_array(std::array<int, 5> &arr) noexcept;
 
@@ -40,14 +43,17 @@ void selectionSort(std::array<int, 5> &arr) noexcept
     {
       // if one of the following indexes is
       // smaller than the current one, swap the two values
-      if (arr[j] < arr[i]) 
-      {
-        tmp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = tmp;
-      }
+      if (arr[j] < arr[i]) swap(arr[i], arr[j]);
     }
   }
+}
+
+// Helper method to swap two values
+void swap(int &a, int &b)
+{
+  int temp = a;
+  a = b;
+  b = temp;
 }
 
 // Helper method to display the array
