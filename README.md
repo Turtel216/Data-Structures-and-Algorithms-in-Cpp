@@ -25,4 +25,5 @@ A project started for educational purposes, containing implementations of DAs in
  - [Compression Algorithms](https://github.com/Turtel216/Compression-Algorithms)
  - Sorting Algorithms
     * [Selection Sort](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/blob/main/Selection-Sort)
+    * [Bubble Sort](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/bubble-sort)
 
