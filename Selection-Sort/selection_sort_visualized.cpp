@@ -2,6 +2,8 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
+#include <SDL2/SDL_audio.h>
+#include <iostream>
 #include <random>
 #include<ranges>
 
@@ -59,6 +61,7 @@ int main()
       draw_state(v, renderer, i, j);
       // Show to the window
       SDL_RenderPresent(renderer);
+      std::cout << "\007" << std::flush;
       SDL_Delay(3);
     }
   }
