@@ -6,7 +6,7 @@ A project started for educational purposes, containing implementations of DAs in
 
 ## This project contains so far
 
-### Data Strucures:
+### Data Structures:
 
  - [Linked List](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/Linked-List)
  - [Stack](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/Stack)
@@ -18,4 +18,4 @@ A project started for educational purposes, containing implementations of DAs in
 
 ### Algorithms:
 
- - [Compressions Algorithms](https://github.com/Turtel216/Compression-Algorithms)
+ - [Compression Algorithms](https://github.com/Turtel216/Compression-Algorithms)
