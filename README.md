@@ -4,9 +4,9 @@
 
 A project started for educational purposes, containing implementations of DAs in the C++ Programming Language
 
-**NOTE** The source file that end with _visualized show the algorithm visually. To run these files type the command:
+**NOTE** The source files that end with _visualized.cpp show the algorithm visually. To run these files type the command:
 
-        g++ -lSDL2 -std=++20 algorithm_name_visualized.cpp
+        g++ -lSDL2 -std=++20 algorithm_name_visualized.cpp'
 
 ## This project contains so far
 
@@ -24,5 +24,5 @@ A project started for educational purposes, containing implementations of DAs in
 
  - [Compression Algorithms](https://github.com/Turtel216/Compression-Algorithms)
  - Sorting Algorithms
-    * [Selection Sort](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/blob/main/Selection-Sort/main.cpp)
+    * [Selection Sort](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/blob/main/Selection-Sort)
 
