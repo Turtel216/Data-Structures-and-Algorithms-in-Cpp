@@ -2,11 +2,9 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
-#include <algorithm>
 #include <iostream>
 #include <random>
 #include<ranges>
-#include <utility>
 
 // Run 'g++ -lSDL2 -std=c++20 insertion_sort_visualized.cpp'
 
@@ -61,7 +59,7 @@ int main()
       SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
       SDL_RenderClear(renderer);
       // Draw the state of the sort 
-      draw_state(v, renderer, i, i+1);
+      draw_state(v, renderer, i, j);
       // Show to the window
       SDL_RenderPresent(renderer);
       std::cout << "\007" << std::flush;
