@@ -49,7 +49,7 @@ void selectionSort(std::array<int, 5> &arr) noexcept
 }
 
 // Helper method to swap two values
-void swap(int &a, int &b)
+inline void swap(int &a, int &b)
 {
   int temp = a;
   a = b;
