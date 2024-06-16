@@ -2,7 +2,7 @@
 #include <iostream>
 #include <tuple>
 
-// Search algorithms that also return false if an error accures and true it doesn't
+// Search algorithm that return true if an error accures and true it doesn't
 std::tuple<int, bool> binary_search(std::array<int, 10> arr, int low, int high, int key) noexcept
 {
   // Iterate over the array until the search space is exhausted
@@ -27,14 +27,13 @@ int main()
 {
   // The sorted array to test the search algo.
   std::array<int, 10> arr = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-  int item = 2; // the to be searched
+  int item = 2; // the item will be searched 
 
   std::cout << "Testing search on array: ";
   for (auto v : arr) std::cout << v << " ";
 
   std::cout << "\nSearching for: " << item << std::endl;
 
-  // Test binary_search
   const auto [result, err] = binary_search(arr, 0, arr.size() - 1, item);
 
   if (err == true)

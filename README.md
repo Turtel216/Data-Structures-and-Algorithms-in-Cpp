@@ -29,5 +29,5 @@ A project started for educational purposes, containing implementations of DAs in
     * [Insertion Sort](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/sorting-algorithms/insertion-sort)
  - [Search Algorithms](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/search-algorithms)
     * [Binary Search](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/search-algorithms/binary-search)
-
+    * [Exponential Search](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/search-algorithms/exponential-search)
 
