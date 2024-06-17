@@ -30,4 +30,5 @@ A project started for educational purposes, containing implementations of DAs in
  - [Search Algorithms](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/search-algorithms)
     * [Binary Search](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/search-algorithms/binary-search)
     * [Exponential Search](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/search-algorithms/exponential-search)
-
+ - [Pattern Searching Algorithms](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/pattern-searching)
+    * [Z Algorithm](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/pattern-searching/z-algorithm)

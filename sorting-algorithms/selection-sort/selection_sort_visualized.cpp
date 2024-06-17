@@ -62,7 +62,7 @@ int main()
       // Show to the window
       SDL_RenderPresent(renderer);
       std::cout << "\007" << std::flush;
-      SDL_Delay(3);
+      SDL_Delay(1);
     }
   }
   return 0;
