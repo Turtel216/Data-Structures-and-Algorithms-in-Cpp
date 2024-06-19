@@ -22,7 +22,6 @@ A project started for educational purposes, containing implementations of DAs in
 
 ### Algorithms:
 
- - [Compression Algorithms](https://github.com/Turtel216/Compression-Algorithms)
  - [Sorting Algorithms](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/sorting-algorithms)
     * [Selection Sort](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/blob/main/sorting-algorithms/selection-sort)
     * [Bubble Sort](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/sorting-algorithms/bubble-sort)
@@ -32,3 +31,5 @@ A project started for educational purposes, containing implementations of DAs in
     * [Exponential Search](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/search-algorithms/exponential-search)
  - [Pattern Searching Algorithms](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/pattern-searching)
     * [Z Algorithm](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/pattern-searching/z-algorithm)
+ - [Compression Algorithms](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/compression-algorithms)
+    * [Rune-length encoding](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/compression-algorithms/run-lengh-encoding)
