@@ -32,4 +32,4 @@ A project started for educational purposes, containing implementations of DAs in
  - [Pattern Searching Algorithms](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/pattern-searching)
     * [Z Algorithm](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/pattern-searching/z-algorithm)
  - [Compression Algorithms](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/compression-algorithms)
-    * [Rune-length encoding](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/compression-algorithms/run-lengh-encoding)
+    * [Rune-length encoding](https://github.com/Turtel216/Data-Structures-and-Algorithms-in-Cpp/tree/main/compression-algorithms/run-length-encoding)
