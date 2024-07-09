@@ -23,7 +23,7 @@ private:
   std::string message;
 
 public:
-  QueueException(const char* msg)
+  QueueException(const char* msg) noexcept
     : message(msg)
   {}
 

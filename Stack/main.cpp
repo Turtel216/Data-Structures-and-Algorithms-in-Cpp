@@ -3,41 +3,35 @@
 /*
 This is an implementation of a the Stack data strcucture
 using a dynamic array and templates. It has the following methods
-  
+
   - 'push': which adds an element to the stack
   - 'pop': which removes an element from the stack
   - 'printContent': which displays the content of the stack
   - `growArray`: which increases the size of the dynamic array
   - `shrinkArray`: which decreases the size of the dynamic growArray
 
-Also the '==' operator has been overloead and returns true if both 
+Also the '==' operator has been overloead and returns true if both
 stacks have the same size
 */
-
-
 
 using namespace std;
 
 // Implemented using dynamic array
-template <typename T>
-class Stack
-{
+template <typename T> class Stack {
 private:
-
-  T* array;
+  T *array;
   size_t size;
   int capacity;
 
   // Increases the size of array
-  void growArray() noexcept
-  {
+  void growArray() noexcept {
     capacity = capacity * 2;
 
     // Create a new array of double size
-    T* temp = new T[capacity];
+    T *temp = new T[capacity];
 
     // Copy elements of old array to new array
-    for(auto i = 0; i < size; i++)
+    for (auto i = 0; i < size; i++)
       temp[i] = array[i];
 
     // delete old array
@@ -48,14 +42,13 @@ private:
   }
 
   // Decreases the size of array
-  void shrinkArray() noexcept
-  {
-    //creating new array by half size
+  void shrinkArray() noexcept {
+    // creating new array by half size
     capacity = size;
-    T* temp = new T[capacity];
+    T *temp = new T[capacity];
 
     // Copy elements of old array to new array
-    for(auto i = 0; i < size; i++)
+    for (auto i = 0; i < size; i++)
       temp[i] = array[i];
 
     // delete old array
@@ -66,18 +59,15 @@ private:
   }
 
 public:
-  
   // Default constructor which creates a stack with size 1
-  Stack() noexcept
-  {
+  Stack() noexcept {
     capacity = 1;
     size = 0;
     array = new T[capacity];
   }
 
   // Constructor with size given by the user
-  Stack(int capacity) noexcept
-  {
+  Stack(int capacity) noexcept {
     this->capacity = capacity;
     array = new T[capacity];
     size = 0;
@@ -88,10 +78,9 @@ public:
   int getCapacity() const noexcept { return capacity; }
 
   // adds a new element to the stack
-  void push(T value) noexcept
-  {
+  void push(T value) noexcept {
     // check if the array can store the new element
-    if(size == capacity)
+    if (size == capacity)
       growArray(); // if not, grow the array
 
     // insert element
@@ -102,8 +91,7 @@ public:
   }
 
   // removes an element from the stack
-  void pop() noexcept
-  {
+  void pop() noexcept {
     // Replace the last index 0
     array[size - 1] = 0;
 
@@ -111,30 +99,25 @@ public:
     size--;
 
     // Reduce if the size is half of its capacity
-    if(size == (capacity / 2))
+    if (size == (capacity / 2))
       shrinkArray();
   }
 
   // displays the content of the stack
-  void printContent() const noexcept
-  {
-    for(auto i = 0; i < size; i++)
+  void printContent() const noexcept {
+    for (auto i = 0; i < size; i++)
       cout << array[i] << endl;
   }
 
-  bool isEmpty()
-  {
-    return size == 0;
-  }
+  bool isEmpty() { return size == 0; }
 
   // Retruns true if both stacks have the same size
-  bool operator==(Stack<T> &other) const noexcept
-  {
+  bool operator==(Stack<T> &other) const noexcept {
     return this->size == other.size;
   }
 };
 
-int main () {
+int main() {
 
   Stack<int> stack;
 
@@ -147,7 +130,7 @@ int main () {
 
   stack.pop();
   stack.pop();
-  
+
   cout << "Poped 2 elements from the stack" << endl;
   stack.printContent();
 
@@ -157,14 +140,14 @@ int main () {
   stack.printContent();
 
   Stack<int> stack2;
-  
+
   stack2.push(2);
   stack2.push(3);
 
   cout << "Created new Stack, which contains 2 elements" << endl;
   stack2.printContent();
 
-  if(stack == stack2)
+  if (stack == stack2)
     cout << "Both stacks have the same size" << endl;
 
   return 0;
